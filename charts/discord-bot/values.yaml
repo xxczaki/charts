@@ -15,7 +15,7 @@ redis:
 image:
   repository: xxczaki/discord-bot
   pullPolicy: Always
-  tag: 94877bc5e99b796ab64a3a16f9bd50600d040b33
+  tag: 7dfc6aa8c0e83d39c5f0ad6b5379ff6206706f44
 securityContext:
   allowPrivilegeEscalation: false
   runAsNonRoot: true
