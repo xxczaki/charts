@@ -18,8 +18,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
@@ -45,7 +45,7 @@ jobs:
         uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_KEY: Antoni Kępiński <spam+artifacthub@xxczaki.com>
+          CR_KEY: Antoni Kępiński <22645979+xxczaki@users.noreply.github.com>
           CR_KEYRING: keyring.gpg
           CR_PASSPHRASE_FILE: passphrase-file.txt
           CR_SIGN: true
