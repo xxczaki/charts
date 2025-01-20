@@ -15,7 +15,7 @@ redis:
 image:
   repository: xxczaki/discord-bot
   pullPolicy: Always
-  tag: d35e99fc40572b253e5bfcec26019fd7e708cfcd
+  tag: 3872900a5a81eecc89a4d78de623430d1d2eb81e
 imagePullSecrets:
   - name: registry-credentials
 securityContext:
