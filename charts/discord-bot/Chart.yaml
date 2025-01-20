@@ -22,5 +22,5 @@ dependencies:
 annotations:
   artifacthub.io/category: streaming-messaging
   artifacthub.io/signKey: |
-    fingerprint: 9C365333A7EBFC6AED1A0B2B28C62A078051AE35
+    fingerprint: 81B1B9DB4D0DA137884ABA3236CBA5624952BE06
     url: https://xxczaki.github.io/charts/key.asc
