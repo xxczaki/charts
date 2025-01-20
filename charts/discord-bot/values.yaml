@@ -16,8 +16,6 @@ image:
   repository: xxczaki/discord-bot
   pullPolicy: Always
   tag: 2d681d529bc75a9b1c7531827c1aac8dc76313b9
-imagePullSecrets:
-  - name: registry-credentials
 securityContext:
   allowPrivilegeEscalation: false
   runAsNonRoot: true
