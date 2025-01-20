@@ -2,7 +2,8 @@ name: Release Helm Charts
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   release:
@@ -17,8 +18,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
