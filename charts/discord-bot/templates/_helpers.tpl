@@ -49,3 +49,16 @@ Selector labels
 app.kubernetes.io/name: {{ include "discord-bot.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Merge default Redis values with user-provided overrides.
+User overrides take precedence.
+*/}}
+{{- define "discord-bot.redis.values" -}}
+redis:
+  architecture: {{ .Values.redis.architecture | default .Chart.Values.redis.architecture }}
+  auth:
+    enabled: {{ .Values.redis.auth.enabled | default .Chart.Values.redis.auth.enabled }}
+  commonConfiguration: |
+    {{- .Values.redis.commonConfiguration | default .Chart.Values.redis.commonConfiguration | nindent 4 }}
+{{- end }}
