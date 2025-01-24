@@ -32,7 +32,7 @@ spec:
                 name: {{ .Values.secrets.token.name }}
                 key: {{ .Values.secrets.token.key }}
           - name: CLIENT_ID
-            value: {{ .Values.env.clientId }}
+            value: "{{ .Values.env.clientId }}"
           - name: REDIS_URL
             value: redis://discord-bot-redis-master.{{ .Release.Namespace }}.svc.cluster.local:6379
           - name: NODE_ENV
