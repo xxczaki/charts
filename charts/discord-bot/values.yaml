@@ -1,12 +1,21 @@
 secrets:
+  # -- Points to a Secret containing the Discord bot token
+  # @section -- Bot
   token:
-    name: secrets
-    key: token
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the Sentry DSN
+  # Learn more: https://docs.sentry.io/concepts/key-terms/dsn-explainer/
+  # @section -- Bot
   sentryDsn:
-    name: secrets
-    key: sentryDsn
+    name: ""
+    key: ""
 env:
+  # -- Client ID used for Discord API authorization
+  # @section -- Bot
   clientId: ""
+# -- General configuration of the Redis instance used for query caching and storing usage statistics
+# @section -- Redis
 redis:
   architecture: 'standalone'
   auth:
@@ -16,10 +25,12 @@ redis:
     appendonly yes
     # Disable RDB persistence, AOF persistence already enabled.
     save ""
+# -- General configuration of the Redis instance used for query caching and storing usage statistics
 image:
   repository: xxczaki/discord-bot
   pullPolicy: Always
   tag: f8b391798239c4387967e303312559ccdd3d4082
+# -- Security context used for the bot Pod
 securityContext:
   allowPrivilegeEscalation: false
   runAsNonRoot: true
@@ -27,6 +38,7 @@ securityContext:
     drop: ["ALL"]
   seccompProfile:
     type: RuntimeDefault
+# -- Resource limits used for the bot Pod
 resources:
   requests:
     memory: "128Mi"
@@ -34,11 +46,13 @@ resources:
   limits:
     memory: "512Mi"
     cpu: "400m"
+# -- Readiness probe used for the bot Pod
 readinessProbe:
   tcpSocket:
     port: 8000
   initialDelaySeconds: 10
   periodSeconds: 10
+# -- Liveness probe used for the bot Pod
 livenessProbe:
   tcpSocket:
     port: 8000
