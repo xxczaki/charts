@@ -39,7 +39,7 @@ image:
   repository: xxczaki/discord-bot
   pullPolicy: Always
   # -- Security context used for the bot Pod
-  tag: 327a63739af3d11a13f667c8bd03bad045ccea38
+  tag: 5cb1be60f05d5ef7f6807217add90e6aeb41da30
 securityContext:
   allowPrivilegeEscalation: false
   runAsNonRoot: true
