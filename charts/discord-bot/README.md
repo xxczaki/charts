@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: e95859ba9ab7fbd8e5f0996b4e384955df3a0327](https://img.shields.io/badge/AppVersion-e95859ba9ab7fbd8e5f0996b4e384955df3a0327-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: e95859ba9ab7fbd8e5f0996b4e384955df3a0327](https://img.shields.io/badge/AppVersion-e95859ba9ab7fbd8e5f0996b4e384955df3a0327-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -28,7 +28,10 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| env.botDebugChannelId | string | `""` | ID of the channel used for sending debug messages |
 | env.clientId | string | `""` | Client ID used for Discord API authorization |
+| env.ownerUserId | string | `""` | ID of the user that should be allowed to perform sensitive actions, like clearing the query cache |
+| env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
 | secrets.sentryDsn | object | `{"key":"","name":""}` | Points to a Secret containing the Sentry DSN Learn more: https://docs.sentry.io/concepts/key-terms/dsn-explainer/ |
 | secrets.token | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
 

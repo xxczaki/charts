@@ -42,6 +42,12 @@ spec:
               secretKeyRef:
                 name: {{ .Values.secrets.sentryDsn.name }}
                 key: {{ .Values.secrets.sentryDsn.key }}
+          - name: PLAYLISTS_CHANNEL_ID
+            value: "{{ .Values.env.playlistsChannelId }}"
+          - name: BOT_DEBUG_CHANNEL_ID
+            value: "{{ .Values.env.botDebugChannelId }}"
+          - name: OWNER_USER_ID
+            value: "{{ .Values.env.ownerUserId }}"
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}

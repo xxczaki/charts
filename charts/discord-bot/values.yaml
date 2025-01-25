@@ -14,6 +14,15 @@ env:
   # -- Client ID used for Discord API authorization
   # @section -- Bot
   clientId: ""
+  # -- ID of the channel used for storing the user playlists
+  # @section -- Bot
+  playlistsChannelId: ""
+  # -- ID of the channel used for sending debug messages
+  # @section -- Bot
+  botDebugChannelId: ""
+  # -- ID of the user that should be allowed to perform sensitive actions, like clearing the query cache
+  # @section -- Bot
+  ownerUserId: ""
 # -- General configuration of the Redis instance used for query caching and storing usage statistics
 # @section -- Redis
 redis:

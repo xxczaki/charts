@@ -36,9 +36,18 @@
 		},
 		"env": {
 			"type": "object",
-			"required": ["clientId"],
+			"required": ["clientId", "playlistsChannelId", "botDebugChannelId", "ownerUserId"],
 			"properties": {
 				"clientId": {
+					"type": "string"
+				},
+				"playlistsChannelId": {
+					"type": "string"
+				},
+  			"botDebugChannelId": {
+					"type": "string"
+				},
+  			"ownerUserId": {
 					"type": "string"
 				}
 			}
