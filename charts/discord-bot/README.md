@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: e95859ba9ab7fbd8e5f0996b4e384955df3a0327](https://img.shields.io/badge/AppVersion-e95859ba9ab7fbd8e5f0996b4e384955df3a0327-informational?style=flat-square)
+![Version: 0.3.11](https://img.shields.io/badge/Version-0.3.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 94d74a30134385f14c9ad3c761fcd278cebc6d46](https://img.shields.io/badge/AppVersion-94d74a30134385f14c9ad3c761fcd278cebc6d46-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -45,8 +45,8 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"e95859ba9ab7fbd8e5f0996b4e384955df3a0327"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
-| image.tag | string | `"e95859ba9ab7fbd8e5f0996b4e384955df3a0327"` | Security context used for the bot Pod |
+| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"94d74a30134385f14c9ad3c761fcd278cebc6d46"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
+| image.tag | string | `"94d74a30134385f14c9ad3c761fcd278cebc6d46"` | Security context used for the bot Pod |
 | livenessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Liveness probe used for the bot Pod |
 | readinessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Readiness probe used for the bot Pod |
 | resources | object | `{"limits":{"cpu":"400m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Resource limits used for the bot Pod |
