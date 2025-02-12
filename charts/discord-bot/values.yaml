@@ -10,6 +10,21 @@ secrets:
   sentryDsn:
     name: ""
     key: ""
+  # -- Points to a Secret containing the Grafana Loki instance hostname (optional)
+  # @section -- Bot
+  lokiHost:
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the Grafana Loki username (optional)
+  # @section -- Bot
+  lokiUsername:
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the Grafana Loki username (password)
+  # @section -- Bot
+  lokiPassword:
+    name: ""
+    key: ""
 env:
   # -- Client ID used for Discord API authorization
   # @section -- Bot
@@ -38,8 +53,8 @@ redis:
 image:
   repository: xxczaki/discord-bot
   pullPolicy: Always
-  # -- Security context used for the bot Pod
   tag: 94d74a30134385f14c9ad3c761fcd278cebc6d46
+# -- Security context used for the bot Pod
 securityContext:
   allowPrivilegeEscalation: false
   runAsNonRoot: true
