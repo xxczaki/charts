@@ -48,6 +48,21 @@ spec:
             value: "{{ .Values.env.botDebugChannelId }}"
           - name: OWNER_USER_ID
             value: "{{ .Values.env.ownerUserId }}"
+          - name: LOKI_HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secrets.lokiHost.name }}
+                key: {{ .Values.secrets.lokiHost.key }}
+          - name: LOKI_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secrets.lokiUsername.name }}
+                key: {{ .Values.secrets.lokiUsername.key }}
+          - name: LOKI_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secrets.lokiPassword.name }}
+                key: {{ .Values.secrets.lokiPassword.key }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
