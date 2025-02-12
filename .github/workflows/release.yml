@@ -1,9 +1,11 @@
 name: Release Helm Charts
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Docs"]
+    branches: [main]
+    types: 
+      - completed
 
 jobs:
   release:
@@ -15,11 +17,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Run helm-docs
-        uses: losisin/helm-docs-github-action@v1
-        with:
-          git-push: true
 
       - name: Configure Git
         run: |
