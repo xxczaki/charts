@@ -58,7 +58,7 @@ spec:
               secretKeyRef:
                 name: {{ .Values.secrets.lokiUsername.name }}
                 key: {{ .Values.secrets.lokiUsername.key }}
-          - name: LOKI_USERNAME
+          - name: LOKI_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.secrets.lokiPassword.name }}
