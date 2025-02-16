@@ -54,7 +54,6 @@ securityContext:
     drop: ["ALL"]
   seccompProfile:
     type: RuntimeDefault
-  fsGroup: 1000 
 # -- Resource limits used for the bot Pod
 resources:
   requests:
