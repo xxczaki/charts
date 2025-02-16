@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.8.12](https://img.shields.io/badge/Version-0.8.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: f1adb3fd568f9abf39a083dc44d6c3d1f8f6d820](https://img.shields.io/badge/AppVersion-f1adb3fd568f9abf39a083dc44d6c3d1f8f6d820-informational?style=flat-square)
+![Version: 0.9.0](https://img.shields.io/badge/Version-0.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: f1adb3fd568f9abf39a083dc44d6c3d1f8f6d820](https://img.shields.io/badge/AppVersion-f1adb3fd568f9abf39a083dc44d6c3d1f8f6d820-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -32,9 +32,7 @@
 | env.clientId | string | `""` | Client ID used for Discord API authorization |
 | env.ownerUserId | string | `""` | ID of the user that should be allowed to perform sensitive actions, like clearing the query cache |
 | env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
-| secrets.lokiHost | object | `{"key":"","name":""}` | Points to a Secret containing the Grafana Loki instance hostname (optional) |
-| secrets.lokiPassword | object | `{"key":"","name":""}` | Points to a Secret containing the Grafana Loki username (password) |
-| secrets.lokiUsername | object | `{"key":"","name":""}` | Points to a Secret containing the Grafana Loki username (optional) |
+| persistentVolumeClaim | object | `{"size":"5Gi","storageClass":""}` | Configuration of the PVC used for storing the cached songs |
 | secrets.sentryDsn | object | `{"key":"","name":""}` | Points to a Secret containing the Sentry DSN Learn more: https://docs.sentry.io/concepts/key-terms/dsn-explainer/ |
 | secrets.token | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
 
