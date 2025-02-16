@@ -48,27 +48,9 @@ spec:
             value: "{{ .Values.env.botDebugChannelId }}"
           - name: OWNER_USER_ID
             value: "{{ .Values.env.ownerUserId }}"
-          {{ if and .Values.secrets.lokiHost.name .Values.secrets.lokiHost.key }}
-          - name: LOKI_HOST
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secrets.lokiHost.name }}
-                key: {{ .Values.secrets.lokiHost.key }}
-          {{ end }}
-          {{ if and .Values.secrets.lokiUsername.name .Values.secrets.lokiUsername.key }}
-          - name: LOKI_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secrets.lokiUsername.name }}
-                key: {{ .Values.secrets.lokiUsername.key }}
-          {{ end }}
-          {{ if and .Values.secrets.lokiPassword.name .Values.secrets.lokiPassword.key }}
-          - name: LOKI_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secrets.lokiPassword.name }}
-                key: {{ .Values.secrets.lokiPassword.key }}
-          {{ end }}
+          volumeMounts:
+          - mountPath: /opus-cache
+            name: opus-cache
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}

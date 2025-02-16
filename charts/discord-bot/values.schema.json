@@ -31,42 +31,6 @@
 							"type": "string"
 						}
 					}
-				},
-				"lokiHost": {
-					"type": "object",
-					"required": ["name", "key"],
-					"properties": {
-						"name": {
-							"type": "string"
-						},
-						"key": {
-							"type": "string"
-						}
-					}
-				},
-				"lokiUsername": {
-					"type": "object",
-					"required": ["name", "key"],
-					"properties": {
-						"name": {
-							"type": "string"
-						},
-						"key": {
-							"type": "string"
-						}
-					}
-				},
-				"lokiPassword": {
-					"type": "object",
-					"required": ["name", "key"],
-					"properties": {
-						"name": {
-							"type": "string"
-						},
-						"key": {
-							"type": "string"
-						}
-					}
 				}
 			}
 		},
@@ -84,6 +48,17 @@
 					"type": "string"
 				},
   			"ownerUserId": {
+					"type": "string"
+				}
+			}
+		},
+		"persistentVolumeClaim": {
+			"type": "object",
+			"properties": {
+				"size": {
+					"type": "string"
+				},
+				"storageClass": {
 					"type": "string"
 				}
 			}

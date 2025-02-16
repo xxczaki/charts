@@ -10,21 +10,6 @@ secrets:
   sentryDsn:
     name: ""
     key: ""
-  # -- Points to a Secret containing the Grafana Loki instance hostname (optional)
-  # @section -- Bot
-  lokiHost:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the Grafana Loki username (optional)
-  # @section -- Bot
-  lokiUsername:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the Grafana Loki username (password)
-  # @section -- Bot
-  lokiPassword:
-    name: ""
-    key: ""
 env:
   # -- Client ID used for Discord API authorization
   # @section -- Bot
@@ -38,6 +23,11 @@ env:
   # -- ID of the user that should be allowed to perform sensitive actions, like clearing the query cache
   # @section -- Bot
   ownerUserId: ""
+# -- Configuration of the PVC used for storing the cached songs
+# @section -- Bot
+persistentVolumeClaim:
+  size: "5Gi"
+  storageClass: ""
 # -- General configuration of the Redis instance used for query caching and storing usage statistics
 # @section -- Redis
 redis:
