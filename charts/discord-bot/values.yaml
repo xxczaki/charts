@@ -50,7 +50,6 @@ image:
 securityContext:
   allowPrivilegeEscalation: false
   runAsNonRoot: true
-  fsGroup: 1000
   capabilities:
     drop: ["ALL"]
   seccompProfile:

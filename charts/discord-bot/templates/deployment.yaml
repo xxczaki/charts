@@ -18,6 +18,8 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      securityContext:
+        fsGroup: 1000
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
