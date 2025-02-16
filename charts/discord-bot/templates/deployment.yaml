@@ -63,3 +63,7 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+      volumes:
+      - name: opus-cache
+        persistentVolumeClaim:
+          claimName: {{ template "discord-bot.fullname" . }}

@@ -51,17 +51,6 @@
 					"type": "string"
 				}
 			}
-		},
-		"persistentVolumeClaim": {
-			"type": "object",
-			"properties": {
-				"size": {
-					"type": "string"
-				},
-				"storageClass": {
-					"type": "string"
-				}
-			}
 		}
 	}
 }

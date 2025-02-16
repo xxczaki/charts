@@ -8,6 +8,8 @@ metadata:
     release: {{ .Release.Name }}
   name: {{ template "discord-bot.fullname" . }}
 spec:
+  accessModes:
+    {{ toYaml .Values.persistentVolumeClaim.accessModes | indent 4 }}
   storageClassName: "{{ .Values.persistentVolumeClaim.storageClass }}"
   resources:
     requests:

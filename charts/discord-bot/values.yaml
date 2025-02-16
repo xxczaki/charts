@@ -27,6 +27,8 @@ env:
 # @section -- Bot
 persistentVolumeClaim:
   size: "5Gi"
+  accessModes:
+    - ReadWriteOnce
   storageClass: ""
 # -- General configuration of the Redis instance used for query caching and storing usage statistics
 # @section -- Redis
