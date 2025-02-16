@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.9.1](https://img.shields.io/badge/Version-0.9.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: ca2740d8adeaa5a83e85e4c0e7b3ee711df7fb60](https://img.shields.io/badge/AppVersion-ca2740d8adeaa5a83e85e4c0e7b3ee711df7fb60-informational?style=flat-square)
+![Version: 0.9.2](https://img.shields.io/badge/Version-0.9.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: ca2740d8adeaa5a83e85e4c0e7b3ee711df7fb60](https://img.shields.io/badge/AppVersion-ca2740d8adeaa5a83e85e4c0e7b3ee711df7fb60-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -32,7 +32,7 @@
 | env.clientId | string | `""` | Client ID used for Discord API authorization |
 | env.ownerUserId | string | `""` | ID of the user that should be allowed to perform sensitive actions, like clearing the query cache |
 | env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
-| persistentVolumeClaim | object | `{"size":"5Gi","storageClass":""}` | Configuration of the PVC used for storing the cached songs |
+| persistentVolumeClaim | object | `{"accessModes":["ReadWriteOnce"],"size":"5Gi","storageClass":""}` | Configuration of the PVC used for storing the cached songs |
 | secrets.sentryDsn | object | `{"key":"","name":""}` | Points to a Secret containing the Sentry DSN Learn more: https://docs.sentry.io/concepts/key-terms/dsn-explainer/ |
 | secrets.token | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
 
