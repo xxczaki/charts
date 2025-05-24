@@ -51,6 +51,13 @@ spec:
             value: "{{ .Values.env.botDebugChannelId }}"
           - name: OWNER_USER_ID
             value: "{{ .Values.env.ownerUserId }}"
+          - name: DP_SPOTIFY_CLIENT_ID
+            value: "{{ .Values.env.spotifyClientId }}"
+          - name: DP_SPOTIFY_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secrets.spotifyClientSecret.name }}
+                key: {{ .Values.secrets.spotifyClientSecret.key }}
           volumeMounts:
           - mountPath: /opus-cache
             name: opus-cache

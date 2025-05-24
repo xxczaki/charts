@@ -10,6 +10,12 @@ secrets:
   sentryDsn:
     name: ""
     key: ""
+  # -- Points to a Secret containing the Spotify API client secret
+  # Used by https://github.com/iTsMaaT/discord-player-spotify
+  # @section -- Bot
+  spotifyClientSecret:
+    name: ""
+    key: ""
 env:
   # -- Client ID used for Discord API authorization
   # @section -- Bot
@@ -23,6 +29,10 @@ env:
   # -- ID of the user that should be allowed to perform sensitive actions, like clearing the query cache
   # @section -- Bot
   ownerUserId: ""
+  # -- Optional client ID for the Spotify API
+  # Used by https://github.com/iTsMaaT/discord-player-spotify
+  # @section -- Bot
+  spotifyClientId: ""
 # -- Configuration of the PVC used for storing the cached songs
 # @section -- Bot
 persistentVolumeClaim:
