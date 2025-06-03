@@ -8,5 +8,5 @@ metadata:
 rules:
 - apiGroups: ["apps"]
   resources: ["deployments"]
-  verbs: ["get", "list", "patch", "update"]
+  verbs: ["delete", "get", "list"]
 {{- end }} 
