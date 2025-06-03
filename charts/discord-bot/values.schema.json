@@ -66,6 +66,28 @@
 					"type": "string"
 				}
 			}
+		},
+		"rbac": {
+			"type": "object",
+			"properties": {
+				"create": {
+					"type": "boolean"
+				}
+			}
+		},
+		"serviceAccount": {
+			"type": "object",
+			"properties": {
+				"create": {
+					"type": "boolean"
+				},
+				"annotations": {
+					"type": "object"
+				},
+				"name": {
+					"type": "string"
+				}
+			}
 		}
 	}
 }

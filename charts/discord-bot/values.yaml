@@ -40,6 +40,14 @@ persistentVolumeClaim:
   accessModes:
     - ReadWriteOnce
   storageClass: ""
+# -- RBAC configuration to access the Kubernetes API
+# @section -- RBAC
+rbac:
+  create: true
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
 # -- General configuration of the Redis instance used for query caching and storing usage statistics
 # @section -- Redis
 redis:

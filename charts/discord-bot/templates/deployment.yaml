@@ -18,6 +18,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "discord-bot.serviceAccountName" . }}
       securityContext:
         fsGroup: 1000
       containers:
