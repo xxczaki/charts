@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.13.12](https://img.shields.io/badge/Version-0.13.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 66149cd5f985ba600544fd7623ceda1e105ea53c](https://img.shields.io/badge/AppVersion-66149cd5f985ba600544fd7623ceda1e105ea53c-informational?style=flat-square)
+![Version: 0.13.13](https://img.shields.io/badge/Version-0.13.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8922a31d0ab9c5ca2166d12802ede50080967452](https://img.shields.io/badge/AppVersion-8922a31d0ab9c5ca2166d12802ede50080967452-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -54,7 +54,7 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"66149cd5f985ba600544fd7623ceda1e105ea53c"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
+| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"8922a31d0ab9c5ca2166d12802ede50080967452"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
 | livenessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Liveness probe used for the bot Pod |
 | readinessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Readiness probe used for the bot Pod |
 | resources | object | `{"limits":{"cpu":"400m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Resource limits used for the bot Pod |
