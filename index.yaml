@@ -7,6 +7,36 @@ entries:
         fingerprint: 81B1B9DB4D0DA137884ABA3236CBA5624952BE06
         url: https://xxczaki.github.io/charts/key.asc
     apiVersion: v2
+    appVersion: c4370054e8f91ac13fa74e32610dd4a3167a53df
+    created: "2025-06-17T01:59:09.674511462Z"
+    dependencies:
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: ~21.1.6
+    description: "\U0001F3B5 Music bot for my private Discord server, powered by discord-player"
+    digest: 7709f9babbd6809222ef2dfe624fddbf477cab6067cd67d2b9f52f27e0e39328
+    home: https://github.com/xxczaki/discord-bot
+    icon: data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%2270%2080%20885%201040%22%3E%3Cpath%20d%3D%22M180.5%201120q-48%200-79.5-30c-21-20-31.5-46.83-31.5-80.5q0-44.5%2024.5-81.75t68.5-60%20102-23.75V174.5l690-94.5v766q0%2088-45%20140.75c-30%2035.17-69.667%2052.75-119%2052.75q-48%200-79.5-30T679.5%20929q0-44.5%2024.5-81.75t68.5-60%20102-23.75V303l-530%2072.5v551c0%2058.667-15%20105.58-45%20140.75s-69.667%2052.75-119%2052.75%22%2F%3E%3C%2Fsvg%3E
+    keywords:
+    - discord-bot
+    - discord-music-bot
+    - discord
+    maintainers:
+    - name: Antoni Kępiński
+      url: https://github.com/xxczaki
+    name: discord-bot
+    sources:
+    - https://github.com/xxczaki/charts/tree/main/charts/discord-bot
+    type: application
+    urls:
+    - https://github.com/xxczaki/charts/releases/download/discord-bot-0.13.28/discord-bot-0.13.28.tgz
+    version: 0.13.28
+  - annotations:
+      artifacthub.io/category: streaming-messaging
+      artifacthub.io/signKey: |-
+        fingerprint: 81B1B9DB4D0DA137884ABA3236CBA5624952BE06
+        url: https://xxczaki.github.io/charts/key.asc
+    apiVersion: v2
     appVersion: 1dbd8fca3672392e429471c253953adb63d29fa7
     created: "2025-06-16T22:11:34.756914986Z"
     dependencies:
@@ -8311,4 +8341,4 @@ entries:
     urls:
     - https://github.com/xxczaki/charts/releases/download/discord-bot-0.0.1/discord-bot-0.0.1.tgz
     version: 0.0.1
-generated: "2025-06-16T22:11:34.757595299Z"
+generated: "2025-06-17T01:59:09.675134754Z"
