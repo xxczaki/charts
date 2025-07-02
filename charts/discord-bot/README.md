@@ -20,7 +20,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | redis | ~21.1.6 |
+| https://charts.bitnami.com/bitnami | redis | ~21.2.6 |
 
 ## Values
 
