@@ -13,8 +13,8 @@ maintainers:
 sources:
   - https://github.com/xxczaki/charts/tree/main/charts/discord-bot
 type: application
-version: 0.14.108
-appVersion: d88fbf2903d06dee13ec3e628b1330bbc349d529
+version: 0.14.109
+appVersion: b91eb9e3ce697169924a2bd485b462ae1ef7f938
 dependencies:
   - name: redis
     version: ~21.2.6
