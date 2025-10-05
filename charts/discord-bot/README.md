@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.14.128](https://img.shields.io/badge/Version-0.14.128-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2bc0b3fac21fa6f278c7257e00fc545ab21c7dfa](https://img.shields.io/badge/AppVersion-2bc0b3fac21fa6f278c7257e00fc545ab21c7dfa-informational?style=flat-square)
+![Version: 0.15.0](https://img.shields.io/badge/Version-0.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2bc0b3fac21fa6f278c7257e00fc545ab21c7dfa](https://img.shields.io/badge/AppVersion-2bc0b3fac21fa6f278c7257e00fc545ab21c7dfa-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -20,7 +20,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | redis | ~21.2.6 |
+| https://charts.bitnami.com/bitnami | redis | ~22.0.7 |
 
 ## Values
 
@@ -34,6 +34,7 @@
 | env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
 | env.spotifyClientId | string | `""` | Optional client ID for the Spotify API Used by https://github.com/iTsMaaT/discord-player-spotify |
 | persistentVolumeClaim | object | `{"accessModes":["ReadWriteOnce"],"size":"5Gi","storageClass":""}` | Configuration of the PVC used for storing the cached songs |
+| secrets.openAiApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the OpenAI API key Used for the `/prompt` command |
 | secrets.sentryDsn | object | `{"key":"","name":""}` | Points to a Secret containing the Sentry DSN Learn more: https://docs.sentry.io/concepts/key-terms/dsn-explainer/ |
 | secrets.spotifyClientSecret | object | `{"key":"","name":""}` | Points to a Secret containing the Spotify API client secret Used by https://github.com/iTsMaaT/discord-player-spotify |
 | secrets.token | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
