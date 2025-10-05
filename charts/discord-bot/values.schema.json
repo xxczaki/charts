@@ -43,6 +43,18 @@
 							"type": "string"
 						}
 					}
+				},
+				"openAiApiKey": {
+					"type": "object",
+					"required": ["name", "key"],
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"key": {
+							"type": "string"
+						}
+					}
 				}
 			}
 		},
