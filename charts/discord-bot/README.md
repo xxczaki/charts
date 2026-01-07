@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.16.305](https://img.shields.io/badge/Version-0.16.305-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7bec6408063bbcb6762805820b56c37bc7c383f9](https://img.shields.io/badge/AppVersion-7bec6408063bbcb6762805820b56c37bc7c383f9-informational?style=flat-square)
+![Version: 0.16.306](https://img.shields.io/badge/Version-0.16.306-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7bec6408063bbcb6762805820b56c37bc7c383f9](https://img.shields.io/badge/AppVersion-7bec6408063bbcb6762805820b56c37bc7c383f9-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
