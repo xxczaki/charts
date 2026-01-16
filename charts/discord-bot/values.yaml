@@ -69,7 +69,7 @@ redis:
 image:
   repository: xxczaki/discord-bot
   pullPolicy: Always
-  tag: f47cbad6695ddf0bcb5f0420ece8ac6aa2067ecc
+  tag: c88f887b29bf7a350421b161bc1f893c79f6250f
 # -- Security context used for the bot Pod
 securityContext:
   allowPrivilegeEscalation: false
