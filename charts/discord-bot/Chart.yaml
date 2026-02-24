@@ -17,7 +17,7 @@ version: 0.16.521
 appVersion: e33f6255dbc0100037f431c3759b1bfc3607b79f
 dependencies:
   - name: redis
-    version: ~23.2.1
+    version: ~25.3.2
     repository: https://charts.bitnami.com/bitnami
 annotations:
   artifacthub.io/category: streaming-messaging
