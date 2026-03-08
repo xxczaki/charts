@@ -3,11 +3,24 @@
 	"timezone": "Europe/Warsaw",
 	"extends": ["config:recommended"],
 	"rangeStrategy": "bump",
+	"postUpdateOptions": ["helmUpdateSubChartArchives"],
 	"packageRules": [
 		{
 			"description": "Automerge non-major updates",
 			"matchUpdateTypes": ["minor", "patch"],
 			"automerge": true
+		},
+		{
+			"description": "Don't automerge Helm dependency updates, bump chart minor version",
+			"matchManagers": ["helmv3"],
+			"automerge": false,
+			"bumpVersions": [
+				{
+					"filePatterns": ["{{packageFileDir}}/Chart.yaml"],
+					"matchStrings": ["version:\\s*(?<version>[^\\s]+)"],
+					"bumpType": "minor"
+				}
+			]
 		}
 	]
 }
