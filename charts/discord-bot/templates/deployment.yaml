@@ -5,15 +5,18 @@ metadata:
   labels:
     {{- include "discord-bot.labels" . | nindent 4 }}
 spec:
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "discord-bot.selectorLabels" . | nindent 6 }}
-  revisionHistoryLimit: 1
+  revisionHistoryLimit: 3
   template:
     metadata:
       labels:
         {{- include "discord-bot.labels" . | nindent 8 }}
     spec:
+      terminationGracePeriodSeconds: 15
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
