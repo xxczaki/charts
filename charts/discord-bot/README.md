@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.17.24](https://img.shields.io/badge/Version-0.17.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3c06e3f3f305fde98b97d0dd04fd562c59861248](https://img.shields.io/badge/AppVersion-3c06e3f3f305fde98b97d0dd04fd562c59861248-informational?style=flat-square)
+![Version: 0.17.25](https://img.shields.io/badge/Version-0.17.25-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: ccf54d80caf03eeb75798ec2447e7f3766b7d8d8](https://img.shields.io/badge/AppVersion-ccf54d80caf03eeb75798ec2447e7f3766b7d8d8-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -55,7 +55,7 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"3c06e3f3f305fde98b97d0dd04fd562c59861248"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
+| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"ccf54d80caf03eeb75798ec2447e7f3766b7d8d8"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
 | livenessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Liveness probe used for the bot Pod |
 | readinessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Readiness probe used for the bot Pod |
 | resources | object | `{"limits":{"cpu":"400m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Resource limits used for the bot Pod |
