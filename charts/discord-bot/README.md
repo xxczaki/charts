@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.18.2](https://img.shields.io/badge/Version-0.18.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5a2b9356a27273c61bbdf928418bff27245233cb](https://img.shields.io/badge/AppVersion-5a2b9356a27273c61bbdf928418bff27245233cb-informational?style=flat-square)
+![Version: 0.19.0](https://img.shields.io/badge/Version-0.19.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5a2b9356a27273c61bbdf928418bff27245233cb](https://img.shields.io/badge/AppVersion-5a2b9356a27273c61bbdf928418bff27245233cb-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -30,9 +30,12 @@
 |-----|------|---------|-------------|
 | env.botDebugChannelId | string | `""` | ID of the channel used for sending debug messages |
 | env.clientId | string | `""` | Client ID used for Discord API authorization |
+| env.disabledCommands | string | `""` | Comma-separated list of commands to disable (e.g. "maintenance,lockdown") Disabled commands are not registered with Discord |
+| env.fallbackSource | string | `""` | Fallback music source when Spotify search has no results Set to "youtube" to use YouTube, leave empty for SoundCloud |
 | env.ownerUserId | string | `""` | ID of the user that should be allowed to perform sensitive actions, like clearing the query cache |
 | env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
 | env.spotifyClientId | string | `""` | Optional client ID for the Spotify API Used by https://github.com/iTsMaaT/discord-player-spotify |
+| env.spotifyMarket | string | `"DE"` | Spotify market code (ISO 3166-1 alpha-2) for search results |
 | persistentVolumeClaim | object | `{"accessModes":["ReadWriteOnce"],"size":"5Gi","storageClass":""}` | Configuration of the PVC used for storing the cached songs |
 | secrets.mistralApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the Mistral API key Used for the `/prompt` command |
 | secrets.openAiApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the OpenAI API key Used for the `/prompt` command |
