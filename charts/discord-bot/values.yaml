@@ -45,6 +45,17 @@ env:
   # Used by https://github.com/iTsMaaT/discord-player-spotify
   # @section -- Bot
   spotifyClientId: ""
+  # -- Spotify market code (ISO 3166-1 alpha-2) for search results
+  # @section -- Bot
+  spotifyMarket: "DE"
+  # -- Fallback music source when Spotify search has no results
+  # Set to "youtube" to use YouTube, leave empty for SoundCloud
+  # @section -- Bot
+  fallbackSource: ""
+  # -- Comma-separated list of commands to disable (e.g. "maintenance,lockdown")
+  # Disabled commands are not registered with Discord
+  # @section -- Bot
+  disabledCommands: ""
 # -- Configuration of the PVC used for storing the cached songs
 # @section -- Bot
 persistentVolumeClaim:

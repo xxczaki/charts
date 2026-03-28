@@ -76,6 +76,16 @@
 				},
 				"spotifyClientId": {
 					"type": "string"
+				},
+				"spotifyMarket": {
+					"type": "string"
+				},
+				"fallbackSource": {
+					"type": "string",
+					"enum": ["", "youtube"]
+				},
+				"disabledCommands": {
+					"type": "string"
 				}
 			}
 		},
