@@ -11,9 +11,8 @@
 			"automerge": true
 		},
 		{
-			"description": "Don't automerge Helm dependency updates, bump chart minor version",
+			"description": "Bump chart minor version for Helm dependency updates",
 			"matchManagers": ["helmv3"],
-			"automerge": false,
 			"bumpVersions": [
 				{
 					"filePatterns": ["{{packageFileDir}}/Chart.yaml"],

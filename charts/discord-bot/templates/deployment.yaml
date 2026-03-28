@@ -67,6 +67,13 @@ spec:
               secretKeyRef:
                 name: {{ .Values.secrets.openAiApiKey.name }}
                 key: {{ .Values.secrets.openAiApiKey.key }}
+          {{- if and .Values.secrets.mistralApiKey.name .Values.secrets.mistralApiKey.key }}
+          - name: MISTRAL_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secrets.mistralApiKey.name }}
+                key: {{ .Values.secrets.mistralApiKey.key }}
+          {{- end }}
           volumeMounts:
           - mountPath: /opus-cache
             name: opus-cache

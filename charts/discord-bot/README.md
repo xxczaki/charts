@@ -34,6 +34,7 @@
 | env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
 | env.spotifyClientId | string | `""` | Optional client ID for the Spotify API Used by https://github.com/iTsMaaT/discord-player-spotify |
 | persistentVolumeClaim | object | `{"accessModes":["ReadWriteOnce"],"size":"5Gi","storageClass":""}` | Configuration of the PVC used for storing the cached songs |
+| secrets.mistralApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the Mistral API key Used for the `/prompt` command |
 | secrets.openAiApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the OpenAI API key Used for the `/prompt` command |
 | secrets.sentryDsn | object | `{"key":"","name":""}` | Points to a Secret containing the Sentry DSN Learn more: https://docs.sentry.io/concepts/key-terms/dsn-explainer/ |
 | secrets.spotifyClientSecret | object | `{"key":"","name":""}` | Points to a Secret containing the Spotify API client secret Used by https://github.com/iTsMaaT/discord-player-spotify |
