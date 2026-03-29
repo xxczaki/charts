@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.19.6](https://img.shields.io/badge/Version-0.19.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 88a702ebdb77a76f211fb6a66e96e90c14a37ceb](https://img.shields.io/badge/AppVersion-88a702ebdb77a76f211fb6a66e96e90c14a37ceb-informational?style=flat-square)
+![Version: 0.20.0](https://img.shields.io/badge/Version-0.20.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 88a702ebdb77a76f211fb6a66e96e90c14a37ceb](https://img.shields.io/badge/AppVersion-88a702ebdb77a76f211fb6a66e96e90c14a37ceb-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -31,7 +31,7 @@
 | env.botDebugChannelId | string | `""` | ID of the channel used for sending debug messages |
 | env.clientId | string | `""` | Client ID used for Discord API authorization |
 | env.disabledCommands | string | `""` | Comma-separated list of commands to disable (e.g. "maintenance,lockdown") Disabled commands are not registered with Discord |
-| env.fallbackSource | string | `""` | Fallback music source when Spotify search has no results Set to "youtube" to use YouTube, leave empty for SoundCloud |
+| env.enableYoutube | string | `""` | Enable YouTube for search and playback Set to "true" to enable YouTube extractor, leave empty for SoundCloud-only |
 | env.ownerUserId | string | `""` | ID of the user that should be allowed to perform sensitive actions, like clearing the query cache |
 | env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
 | env.spotifyClientId | string | `""` | Optional client ID for the Spotify API Used by https://github.com/iTsMaaT/discord-player-spotify |
