@@ -80,9 +80,9 @@
 				"spotifyMarket": {
 					"type": "string"
 				},
-				"fallbackSource": {
+				"enableYoutube": {
 					"type": "string",
-					"enum": ["", "youtube"]
+					"enum": ["", "true"]
 				},
 				"disabledCommands": {
 					"type": "string"

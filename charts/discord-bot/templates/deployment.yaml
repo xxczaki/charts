@@ -71,9 +71,9 @@ spec:
           - name: SPOTIFY_MARKET
             value: "{{ .Values.env.spotifyMarket }}"
           {{- end }}
-          {{- if .Values.env.fallbackSource }}
-          - name: FALLBACK_SOURCE
-            value: "{{ .Values.env.fallbackSource }}"
+          {{- if .Values.env.enableYoutube }}
+          - name: ENABLE_YOUTUBE
+            value: "{{ .Values.env.enableYoutube }}"
           {{- end }}
           {{- if .Values.env.disabledCommands }}
           - name: DISABLED_COMMANDS

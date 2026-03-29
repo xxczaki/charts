@@ -48,10 +48,10 @@ env:
   # -- Spotify market code (ISO 3166-1 alpha-2) for search results
   # @section -- Bot
   spotifyMarket: "DE"
-  # -- Fallback music source when Spotify search has no results
-  # Set to "youtube" to use YouTube, leave empty for SoundCloud
+  # -- Enable YouTube for search and playback
+  # Set to "true" to enable YouTube extractor, leave empty for SoundCloud-only
   # @section -- Bot
-  fallbackSource: ""
+  enableYoutube: ""
   # -- Comma-separated list of commands to disable (e.g. "maintenance,lockdown")
   # Disabled commands are not registered with Discord
   # @section -- Bot
