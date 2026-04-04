@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.20.7](https://img.shields.io/badge/Version-0.20.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 956cb7ec7c99cf051eb573bb7566ded46035ddda](https://img.shields.io/badge/AppVersion-956cb7ec7c99cf051eb573bb7566ded46035ddda-informational?style=flat-square)
+![Version: 0.21.0](https://img.shields.io/badge/Version-0.21.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 956cb7ec7c99cf051eb573bb7566ded46035ddda](https://img.shields.io/badge/AppVersion-956cb7ec7c99cf051eb573bb7566ded46035ddda-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -32,7 +32,7 @@
 | env.clientId | string | `""` | Client ID used for Discord API authorization |
 | env.disabledCommands | string | `""` | Comma-separated list of commands to disable (e.g. "maintenance,lockdown") Disabled commands are not registered with Discord |
 | env.enableYoutube | string | `""` | Enable YouTube for search and playback Set to "true" to enable YouTube extractor, leave empty for SoundCloud-only |
-| env.ownerUserId | string | `""` | ID of the user that should be allowed to perform sensitive actions, like clearing the query cache |
+| env.ownerRoleId | string | `""` | ID of the role that should be allowed to perform sensitive actions, like clearing the query cache |
 | env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
 | env.spotifyClientId | string | `""` | Optional client ID for the Spotify API Used by https://github.com/iTsMaaT/discord-player-spotify |
 | env.spotifyMarket | string | `"DE"` | Spotify market code (ISO 3166-1 alpha-2) for search results |
