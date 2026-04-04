@@ -53,8 +53,8 @@ spec:
             value: "{{ .Values.env.playlistsChannelId }}"
           - name: BOT_DEBUG_CHANNEL_ID
             value: "{{ .Values.env.botDebugChannelId }}"
-          - name: OWNER_USER_ID
-            value: "{{ .Values.env.ownerUserId }}"
+          - name: OWNER_ROLE_ID
+            value: "{{ .Values.env.ownerRoleId }}"
           - name: DP_SPOTIFY_CLIENT_ID
             value: "{{ .Values.env.spotifyClientId }}"
           - name: DP_SPOTIFY_CLIENT_SECRET
