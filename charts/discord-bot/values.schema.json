@@ -60,7 +60,7 @@
 		},
 		"env": {
 			"type": "object",
-			"required": ["clientId", "playlistsChannelId", "botDebugChannelId", "ownerUserId"],
+			"required": ["clientId", "playlistsChannelId", "botDebugChannelId", "ownerRoleId"],
 			"properties": {
 				"clientId": {
 					"type": "string"
@@ -71,7 +71,7 @@
   			"botDebugChannelId": {
 					"type": "string"
 				},
-  			"ownerUserId": {
+  			"ownerRoleId": {
 					"type": "string"
 				},
 				"spotifyClientId": {
