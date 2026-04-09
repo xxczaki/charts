@@ -20,7 +20,6 @@ secrets:
   haSSHKey:
     name: ""
     key: ""
-
 env:
   # -- Discord application client ID
   # @section -- Bot
@@ -28,17 +27,14 @@ env:
   # -- Comma-separated Discord user IDs allowed to interact
   # @section -- Bot
   allowedUserIds: ""
-
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
-  tag: ""
-
+  tag: "522d5787204fa71e66a05942879ae96c5f92c37f"
 serviceAccount:
   create: true
   annotations: {}
   name: ""
-
 persistence:
   # -- Size of the persistent volume for Claude Code state and app data
   # @section -- Storage
@@ -46,7 +42,6 @@ persistence:
   accessModes:
     - ReadWriteOnce
   storageClass: ""
-
 securityContext:
   allowPrivilegeEscalation: false
   runAsNonRoot: true
@@ -54,7 +49,6 @@ securityContext:
     drop: ["ALL"]
   seccompProfile:
     type: RuntimeDefault
-
 resources:
   requests:
     memory: "128Mi"
@@ -62,7 +56,6 @@ resources:
   limits:
     memory: "512Mi"
     cpu: "500m"
-
 initContainers:
   ghCli:
     # -- GitHub CLI version to install
