@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "wicek.fullname" . }}
+  labels:
+    {{- include "wicek.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "wicek.selectorLabels" . | nindent 6 }}
+  policyTypes:
+    - Ingress
+    - Egress
+  # No ingress — bot is outbound-only
+  ingress: []
+  egress:
+    # DNS
+    - ports:
+        - port: 53
+          protocol: TCP
+        - port: 53
+          protocol: UDP
+    # HTTPS (Discord API, Anthropic API, web search, GitHub)
+    - ports:
+        - port: 443
+          protocol: TCP
+    # HTTP (some sites may use plain HTTP)
+    - ports:
+        - port: 80
+          protocol: TCP
+    # SSH to Tailscale devices
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: tailscale
+      ports:
+        - port: 22
+          protocol: TCP

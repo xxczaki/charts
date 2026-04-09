@@ -1,0 +1,16 @@
+apiVersion: v2
+name: wicek
+description: Minimal Claude Code agent with Discord bot interface
+home: https://github.com/xxczaki/wicek
+keywords:
+  - claude-code
+  - discord-bot
+  - ai-agent
+maintainers:
+  - name: Antoni Kepinski
+    url: https://github.com/xxczaki
+sources:
+  - https://github.com/xxczaki/charts/tree/main/charts/wicek
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

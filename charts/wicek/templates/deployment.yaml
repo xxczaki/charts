@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wicek.fullname" . }}
+  labels:
+    {{- include "wicek.labels" . | nindent 4 }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "wicek.selectorLabels" . | nindent 6 }}
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        {{- include "wicek.labels" . | nindent 8 }}
+    spec:
+      terminationGracePeriodSeconds: 15
+      serviceAccountName: {{ include "wicek.serviceAccountName" . }}
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      initContainers:
+        - name: install-gh
+          image: alpine:3
+          command:
+            - sh
+            - -c
+            - |
+              apk add --no-cache curl tar &&
+              curl -sL "https://github.com/cli/cli/releases/download/v{{ .Values.initContainers.ghCli.version }}/gh_{{ .Values.initContainers.ghCli.version }}_linux_arm64.tar.gz" |
+              tar xz --strip-components=2 -C /extra-bin "gh_{{ .Values.initContainers.ghCli.version }}_linux_arm64/bin/gh"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: extra-bin
+              mountPath: /extra-bin
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: DISCORD_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.discordToken.name }}
+                  key: {{ .Values.secrets.discordToken.key }}
+            - name: CLAUDE_CODE_OAUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.oauthToken.name }}
+                  key: {{ .Values.secrets.oauthToken.key }}
+            - name: CLIENT_ID
+              value: "{{ .Values.env.clientId }}"
+            - name: ALLOWED_USER_IDS
+              value: "{{ .Values.env.allowedUserIds }}"
+            - name: DATA_DIR
+              value: "/data"
+            - name: HOME
+              value: "/home/node"
+            - name: NODE_ENV
+              value: "production"
+            {{- if and .Values.secrets.grafanaApiKey.name .Values.secrets.grafanaApiKey.key }}
+            - name: GRAFANA_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.grafanaApiKey.name }}
+                  key: {{ .Values.secrets.grafanaApiKey.key }}
+            {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: claude-state
+              mountPath: /home/node/.claude
+            - name: extra-bin
+              mountPath: /usr/local/bin/gh
+              subPath: gh
+              readOnly: true
+            {{- if and .Values.secrets.haSSHKey.name .Values.secrets.haSSHKey.key }}
+            - name: ha-ssh-key
+              mountPath: /etc/ssh/wicek
+              readOnly: true
+              readOnly: true
+            {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "wicek.fullname" . }}
+        - name: claude-state
+          persistentVolumeClaim:
+            claimName: {{ include "wicek.fullname" . }}-claude
+        - name: extra-bin
+          emptyDir: {}
+        {{- if and .Values.secrets.haSSHKey.name .Values.secrets.haSSHKey.key }}
+        - name: ha-ssh-key
+          secret:
+            secretName: {{ .Values.secrets.haSSHKey.name }}
+            defaultMode: 0400
+        {{- end }}

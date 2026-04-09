@@ -1,0 +1,70 @@
+secrets:
+  # -- Points to a Secret containing the Claude Code OAuth token
+  # Generated via `claude setup-token`
+  # @section -- Authentication
+  oauthToken:
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the Discord bot token
+  # @section -- Authentication
+  discordToken:
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the Grafana API key
+  # @section -- Authentication
+  grafanaApiKey:
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the Home Assistant SSH key
+  # @section -- Authentication
+  haSSHKey:
+    name: ""
+    key: ""
+
+env:
+  # -- Discord application client ID
+  # @section -- Bot
+  clientId: ""
+  # -- Comma-separated Discord user IDs allowed to interact
+  # @section -- Bot
+  allowedUserIds: ""
+
+image:
+  repository: ghcr.io/xxczaki/wicek
+  pullPolicy: Always
+  tag: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+persistence:
+  # -- Size of the persistent volume for Claude Code state and app data
+  # @section -- Storage
+  size: "5Gi"
+  accessModes:
+    - ReadWriteOnce
+  storageClass: ""
+
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: RuntimeDefault
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "50m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+initContainers:
+  ghCli:
+    # -- GitHub CLI version to install
+    # @section -- Init Containers
+    version: "2.87.3"
