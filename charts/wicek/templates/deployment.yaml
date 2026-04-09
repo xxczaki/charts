@@ -29,10 +29,11 @@ spec:
             - sh
             - -c
             - |
-              apk add --no-cache curl tar &&
-              curl -sL "https://github.com/cli/cli/releases/download/v{{ .Values.initContainers.ghCli.version }}/gh_{{ .Values.initContainers.ghCli.version }}_linux_arm64.tar.gz" |
+              wget -qO- "https://github.com/cli/cli/releases/download/v{{ .Values.initContainers.ghCli.version }}/gh_{{ .Values.initContainers.ghCli.version }}_linux_arm64.tar.gz" |
               tar xz --strip-components=2 -C /extra-bin "gh_{{ .Values.initContainers.ghCli.version }}_linux_arm64/bin/gh"
           securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
