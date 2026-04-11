@@ -30,7 +30,7 @@ env:
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
-  tag: "1a5387592280cad04893b6678608fb1fbb7db4f1"
+  tag: "a97487498f415c7f468eda4df966ba2e363d561d"
 serviceAccount:
   create: true
   annotations: {}
@@ -61,7 +61,6 @@ initContainers:
     # -- GitHub CLI version to install
     # @section -- Init Containers
     version: "2.87.3"
-
 chromium:
   # -- Enable headless Chrome sidecar for browser automation
   # @section -- Browser
