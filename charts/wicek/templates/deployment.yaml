@@ -91,12 +91,27 @@ spec:
             - name: ha-ssh-key
               mountPath: /etc/ssh/wicek
               readOnly: true
-              readOnly: true
             {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+        {{- if .Values.chromium.enabled }}
+        - name: chromium
+          image: {{ .Values.chromium.image }}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+          {{- with .Values.chromium.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        {{- end }}
       volumes:
         - name: data
           persistentVolumeClaim:

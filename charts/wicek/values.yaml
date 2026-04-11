@@ -61,3 +61,16 @@ initContainers:
     # -- GitHub CLI version to install
     # @section -- Init Containers
     version: "2.87.3"
+
+chromium:
+  # -- Enable headless Chrome sidecar for browser automation
+  # @section -- Browser
+  enabled: false
+  image: chromedp/headless-shell:stable
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
