@@ -18,6 +18,12 @@ Minimal Claude Code agent with Discord bot interface
 
 ## Values
 
+### Browser
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| chromium.enabled | bool | `false` | Enable headless Chrome sidecar for browser automation |
+
 ### Bot
 
 | Key | Type | Default | Description |
@@ -50,6 +56,11 @@ Minimal Claude Code agent with Discord bot interface
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| chromium.image | string | `"chromedp/headless-shell:stable"` |  |
+| chromium.resources.limits.cpu | string | `"500m"` |  |
+| chromium.resources.limits.memory | string | `"512Mi"` |  |
+| chromium.resources.requests.cpu | string | `"100m"` |  |
+| chromium.resources.requests.memory | string | `"256Mi"` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"ghcr.io/xxczaki/wicek"` |  |
 | image.tag | string | `"1a5387592280cad04893b6678608fb1fbb7db4f1"` |  |
