@@ -67,7 +67,7 @@ Minimal Claude Code agent with Discord bot interface
 | persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
 | persistence.storageClass | string | `""` |  |
 | resources.limits.cpu | string | `"500m"` |  |
-| resources.limits.memory | string | `"512Mi"` |  |
+| resources.limits.memory | string | `"1Gi"` |  |
 | resources.requests.cpu | string | `"50m"` |  |
 | resources.requests.memory | string | `"128Mi"` |  |
 | securityContext.allowPrivilegeEscalation | bool | `false` |  |
