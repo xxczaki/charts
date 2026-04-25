@@ -11,7 +11,7 @@ spec:
   policyTypes:
     - Ingress
     - Egress
-  # No ingress — bot is outbound-only
+  # No ingress – bot is outbound-only
   ingress: []
   egress:
     # DNS
