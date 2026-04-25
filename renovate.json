@@ -1,15 +1,9 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"timezone": "Europe/Warsaw",
-	"extends": ["config:recommended"],
+	"extends": ["github>xxczaki/renovate-config"],
 	"rangeStrategy": "bump",
 	"postUpdateOptions": ["helmUpdateSubChartArchives"],
 	"packageRules": [
-		{
-			"description": "Automerge non-major updates",
-			"matchUpdateTypes": ["minor", "patch"],
-			"automerge": true
-		},
 		{
 			"description": "Bump chart minor version for Helm dependency updates",
 			"matchManagers": ["helmv3"],

@@ -20,8 +20,14 @@ jobs:
 
       - name: Run helm-docs
         uses: losisin/helm-docs-github-action@v1
+
+      - name: Commit helm-docs changes
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          git-push: true
+          commit_message: update Helm documentation
+          commit_user_name: Antoni Kępiński
+          commit_user_email: 22645979+xxczaki@users.noreply.github.com
+          commit_author: Antoni Kępiński <22645979+xxczaki@users.noreply.github.com>
 
       - name: Configure Git
         run: |
