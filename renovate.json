@@ -1,7 +1,6 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": ["github>xxczaki/renovate-config"],
-	"rangeStrategy": "bump",
 	"postUpdateOptions": ["helmUpdateSubChartArchives"],
 	"packageRules": [
 		{
