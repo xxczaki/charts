@@ -87,6 +87,20 @@ spec:
                   name: {{ .Values.secrets.haToken.name }}
                   key: {{ .Values.secrets.haToken.key }}
             {{- end }}
+            {{- if and .Values.secrets.appleId.name .Values.secrets.appleId.key }}
+            - name: APPLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.appleId.name }}
+                  key: {{ .Values.secrets.appleId.key }}
+            {{- end }}
+            {{- if and .Values.secrets.appleAppPassword.name .Values.secrets.appleAppPassword.key }}
+            - name: APPLE_APP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.appleAppPassword.name }}
+                  key: {{ .Values.secrets.appleAppPassword.key }}
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: /data

@@ -21,6 +21,17 @@ secrets:
   haToken:
     name: ""
     key: ""
+  # -- Points to a Secret containing the Apple ID email (iCloud CalDAV)
+  # @section -- Authentication
+  appleId:
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the Apple app-specific password (iCloud CalDAV)
+  # When appleId and appleAppPassword are both set, APPLE_ID/APPLE_APP_PASSWORD are injected.
+  # @section -- Authentication
+  appleAppPassword:
+    name: ""
+    key: ""
   # -- Points to a Secret containing the Home Assistant SSH key
   # @section -- Authentication
   haSSHKey:
