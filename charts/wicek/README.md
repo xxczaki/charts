@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.77](https://img.shields.io/badge/Version-0.1.77-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: da4b4de241f89b5c76337736a371363a258c8582](https://img.shields.io/badge/AppVersion-da4b4de241f89b5c76337736a371363a258c8582-informational?style=flat-square)
+![Version: 0.1.78](https://img.shields.io/badge/Version-0.1.78-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: da4b4de241f89b5c76337736a371363a258c8582](https://img.shields.io/badge/AppVersion-da4b4de241f89b5c76337736a371363a258c8582-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -47,9 +47,12 @@ Minimal Claude Code agent with Discord bot interface
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| secrets.appleAppPassword | object | `{"key":"","name":""}` | Points to a Secret containing the Apple app-specific password (iCloud CalDAV) When appleId and appleAppPassword are both set, APPLE_ID/APPLE_APP_PASSWORD are injected. |
+| secrets.appleId | object | `{"key":"","name":""}` | Points to a Secret containing the Apple ID email (iCloud CalDAV) |
 | secrets.discordToken | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
 | secrets.grafanaApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the Grafana API key |
 | secrets.haSSHKey | object | `{"key":"","name":""}` | Points to a Secret containing the Home Assistant SSH key |
+| secrets.haToken | object | `{"key":"","name":""}` | Points to a Secret containing the Home Assistant long-lived access token Authenticates to the Home Assistant MCP server. When unset, HA_TOKEN is not injected. |
 | secrets.oauthToken | object | `{"key":"","name":""}` | Points to a Secret containing the Claude Code OAuth token Generated via `claude setup-token` |
 
 ### Other Values
