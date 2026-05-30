@@ -80,6 +80,13 @@ spec:
                   name: {{ .Values.secrets.grafanaApiKey.name }}
                   key: {{ .Values.secrets.grafanaApiKey.key }}
             {{- end }}
+            {{- if and .Values.secrets.haToken.name .Values.secrets.haToken.key }}
+            - name: HA_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.haToken.name }}
+                  key: {{ .Values.secrets.haToken.key }}
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: /data
