@@ -32,6 +32,17 @@ secrets:
   appleAppPassword:
     name: ""
     key: ""
+  # -- Points to a Secret containing the UniFi controller username
+  # When unifiUsername and unifiPassword are both set, UNIFI_USERNAME/UNIFI_PASSWORD are injected.
+  # @section -- Authentication
+  unifiUsername:
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the UniFi controller password
+  # @section -- Authentication
+  unifiPassword:
+    name: ""
+    key: ""
   # -- Points to a Secret containing the Home Assistant SSH key
   # @section -- Authentication
   haSSHKey:
