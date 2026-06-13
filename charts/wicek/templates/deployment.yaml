@@ -101,6 +101,20 @@ spec:
                   name: {{ .Values.secrets.appleAppPassword.name }}
                   key: {{ .Values.secrets.appleAppPassword.key }}
             {{- end }}
+            {{- if and .Values.secrets.unifiUsername.name .Values.secrets.unifiUsername.key }}
+            - name: UNIFI_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.unifiUsername.name }}
+                  key: {{ .Values.secrets.unifiUsername.key }}
+            {{- end }}
+            {{- if and .Values.secrets.unifiPassword.name .Values.secrets.unifiPassword.key }}
+            - name: UNIFI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.unifiPassword.name }}
+                  key: {{ .Values.secrets.unifiPassword.key }}
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: /data
