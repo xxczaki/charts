@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.106](https://img.shields.io/badge/Version-0.1.106-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7ddcb09f4900fdd6b2f3b1fe28390d10ae770b98](https://img.shields.io/badge/AppVersion-7ddcb09f4900fdd6b2f3b1fe28390d10ae770b98-informational?style=flat-square)
+![Version: 0.1.107](https://img.shields.io/badge/Version-0.1.107-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7ddcb09f4900fdd6b2f3b1fe28390d10ae770b98](https://img.shields.io/badge/AppVersion-7ddcb09f4900fdd6b2f3b1fe28390d10ae770b98-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -54,6 +54,8 @@ Minimal Claude Code agent with Discord bot interface
 | secrets.haSSHKey | object | `{"key":"","name":""}` | Points to a Secret containing the Home Assistant SSH key |
 | secrets.haToken | object | `{"key":"","name":""}` | Points to a Secret containing the Home Assistant long-lived access token Authenticates to the Home Assistant MCP server. When unset, HA_TOKEN is not injected. |
 | secrets.oauthToken | object | `{"key":"","name":""}` | Points to a Secret containing the Claude Code OAuth token Generated via `claude setup-token` |
+| secrets.unifiPassword | object | `{"key":"","name":""}` | Points to a Secret containing the UniFi controller password |
+| secrets.unifiUsername | object | `{"key":"","name":""}` | Points to a Secret containing the UniFi controller username When unifiUsername and unifiPassword are both set, UNIFI_USERNAME/UNIFI_PASSWORD are injected. |
 
 ### Other Values
 
