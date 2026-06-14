@@ -101,3 +101,31 @@ chromium:
     limits:
       memory: "512Mi"
       cpu: "500m"
+networkPolicy:
+  # -- Restrict pod traffic (the bot is outbound-only; ingress is always denied)
+  # @section -- Network Policy
+  enabled: true
+  # -- Policy provider: "standard" (portable, port-based NetworkPolicy) or
+  # "cilium" (DNS-aware FQDN egress allowlist with default-deny; requires the
+  # Cilium CNI). Use "cilium" to restrict egress to specific domains.
+  # @section -- Network Policy
+  provider: standard
+  tailscale:
+    # -- Allow egress to a Tailscale namespace (SSH and sidecar service ports). Applies to both providers.
+    # @section -- Network Policy
+    enabled: true
+    # -- Namespace running the Tailscale operator/egress proxies
+    # @section -- Network Policy
+    namespace: tailscale
+    # -- Ports allowed to Tailscale destinations
+    # @section -- Network Policy
+    ports:
+      - 22
+      - 8123
+  cilium:
+    # -- Domains the agent may reach over HTTPS. Everything else is denied (provider "cilium" only).
+    # @section -- Network Policy
+    allowedFQDNs: []
+    # -- CIDRs the agent may reach over HTTPS, e.g. a LAN controller (provider "cilium" only).
+    # @section -- Network Policy
+    allowedCIDRs: []
