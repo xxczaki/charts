@@ -1,3 +1,4 @@
+{{- if and .Values.networkPolicy.enabled (eq .Values.networkPolicy.provider "standard") }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -28,13 +29,16 @@ spec:
     - ports:
         - port: 80
           protocol: TCP
-    # SSH + Home Assistant MCP (8123) to Tailscale devices
+    {{- if .Values.networkPolicy.tailscale.enabled }}
+    # SSH + sidecar service ports to Tailscale devices
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: tailscale
+              kubernetes.io/metadata.name: {{ .Values.networkPolicy.tailscale.namespace }}
       ports:
-        - port: 22
+        {{- range .Values.networkPolicy.tailscale.ports }}
+        - port: {{ . }}
           protocol: TCP
-        - port: 8123
-          protocol: TCP
+        {{- end }}
+    {{- end }}
+{{- end }}
