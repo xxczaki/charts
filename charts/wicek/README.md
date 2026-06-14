@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.113](https://img.shields.io/badge/Version-0.1.113-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6697c5b4f88a86b3524a5f4a3d85dbe91b19d002](https://img.shields.io/badge/AppVersion-6697c5b4f88a86b3524a5f4a3d85dbe91b19d002-informational?style=flat-square)
+![Version: 0.1.114](https://img.shields.io/badge/Version-0.1.114-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6697c5b4f88a86b3524a5f4a3d85dbe91b19d002](https://img.shields.io/badge/AppVersion-6697c5b4f88a86b3524a5f4a3d85dbe91b19d002-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -36,6 +36,18 @@ Minimal Claude Code agent with Discord bot interface
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | initContainers.ghCli.version | string | `"2.87.3"` | GitHub CLI version to install |
+
+### Network Policy
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| networkPolicy.cilium.allowedCIDRs | list | `[]` | CIDRs the agent may reach over HTTPS, e.g. a LAN controller (provider "cilium" only). |
+| networkPolicy.cilium.allowedFQDNs | list | `[]` | Domains the agent may reach over HTTPS. Everything else is denied (provider "cilium" only). |
+| networkPolicy.enabled | bool | `true` | Restrict pod traffic (the bot is outbound-only; ingress is always denied) |
+| networkPolicy.provider | string | `"standard"` | Policy provider: "standard" (portable, port-based NetworkPolicy) or "cilium" (DNS-aware FQDN egress allowlist with default-deny; requires the Cilium CNI). Use "cilium" to restrict egress to specific domains. |
+| networkPolicy.tailscale.enabled | bool | `true` | Allow egress to a Tailscale namespace (SSH and sidecar service ports). Applies to both providers. |
+| networkPolicy.tailscale.namespace | string | `"tailscale"` | Namespace running the Tailscale operator/egress proxies |
+| networkPolicy.tailscale.ports | list | `[22,8123]` | Ports allowed to Tailscale destinations |
 
 ### Storage
 
