@@ -12,5 +12,5 @@ maintainers:
 sources:
   - https://github.com/xxczaki/charts/tree/main/charts/wicek
 type: application
-version: 0.1.116
-appVersion: "62817b1812e6eb2c69501605e633bed4d22421e1"
+version: 0.1.117
+appVersion: "e8b051454a018236c0d9b73490d4325b4b4f1ebb"
