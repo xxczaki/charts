@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.118](https://img.shields.io/badge/Version-0.1.118-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9482054e407a7c650ee8f1d06b80f57c0cf686b1](https://img.shields.io/badge/AppVersion-9482054e407a7c650ee8f1d06b80f57c0cf686b1-informational?style=flat-square)
+![Version: 0.1.119](https://img.shields.io/badge/Version-0.1.119-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 9482054e407a7c650ee8f1d06b80f57c0cf686b1](https://img.shields.io/badge/AppVersion-9482054e407a7c650ee8f1d06b80f57c0cf686b1-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -62,6 +62,7 @@ Minimal Claude Code agent with Discord bot interface
 | secrets.appleAppPassword | object | `{"key":"","name":""}` | Points to a Secret containing the Apple app-specific password (iCloud CalDAV) When appleId and appleAppPassword are both set, APPLE_ID/APPLE_APP_PASSWORD are injected. |
 | secrets.appleId | object | `{"key":"","name":""}` | Points to a Secret containing the Apple ID email (iCloud CalDAV) |
 | secrets.discordToken | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
+| secrets.ghToken | object | `{"key":"","name":""}` | Points to a Secret containing a GitHub token (GH_TOKEN) Authenticates the `gh` CLI and git pushes. When unset, GH_TOKEN is not injected. |
 | secrets.grafanaApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the Grafana API key |
 | secrets.haSSHKey | object | `{"key":"","name":""}` | Points to a Secret containing the Home Assistant SSH key |
 | secrets.haToken | object | `{"key":"","name":""}` | Points to a Secret containing the Home Assistant long-lived access token Authenticates to the Home Assistant MCP server. When unset, HA_TOKEN is not injected. |

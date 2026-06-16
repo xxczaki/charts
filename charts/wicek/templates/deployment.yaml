@@ -73,6 +73,13 @@ spec:
               value: "production"
             - name: APP_VERSION
               value: "{{ .Chart.Version }}"
+            {{- if and .Values.secrets.ghToken.name .Values.secrets.ghToken.key }}
+            - name: GH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.ghToken.name }}
+                  key: {{ .Values.secrets.ghToken.key }}
+            {{- end }}
             {{- if and .Values.secrets.grafanaApiKey.name .Values.secrets.grafanaApiKey.key }}
             - name: GRAFANA_API_KEY
               valueFrom:
