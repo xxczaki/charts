@@ -10,6 +10,12 @@ secrets:
   discordToken:
     name: ""
     key: ""
+  # -- Points to a Secret containing a GitHub token (GH_TOKEN)
+  # Authenticates the `gh` CLI and git pushes. When unset, GH_TOKEN is not injected.
+  # @section -- Authentication
+  ghToken:
+    name: ""
+    key: ""
   # -- Points to a Secret containing the Grafana API key
   # @section -- Authentication
   grafanaApiKey:
