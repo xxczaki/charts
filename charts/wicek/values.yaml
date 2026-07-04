@@ -64,7 +64,7 @@ env:
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
-  tag: "23552bb34a4969e21535056f174a9e049dbeb8f7"
+  tag: "b3da426ce26c6c4c8997eaced85535a41da5481a"
 serviceAccount:
   create: true
   annotations: {}
