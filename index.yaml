@@ -31773,6 +31773,26 @@ entries:
     version: 0.0.1
   wicek:
   - apiVersion: v2
+    appVersion: 487e66578e1692bc2821321e5ec95d1c9cd5ecb5
+    created: "2026-07-16T02:02:03.643982203Z"
+    description: Minimal Claude Code agent with Discord bot interface
+    digest: 557b1ce032470f66463ca028c2b0889a90b80cec54383317bbb4ee1eadc26652
+    home: https://github.com/xxczaki/wicek
+    keywords:
+    - claude-code
+    - discord-bot
+    - ai-agent
+    maintainers:
+    - name: Antoni Kepinski
+      url: https://github.com/xxczaki
+    name: wicek
+    sources:
+    - https://github.com/xxczaki/charts/tree/main/charts/wicek
+    type: application
+    urls:
+    - https://github.com/xxczaki/charts/releases/download/wicek-0.1.168/wicek-0.1.168.tgz
+    version: 0.1.168
+  - apiVersion: v2
     appVersion: 808cb044d36bc92cd74679be7d0b7698ee9e5051
     created: "2026-07-15T22:02:23.458994063Z"
     description: Minimal Claude Code agent with Discord bot interface
@@ -35132,4 +35152,4 @@ entries:
     urls:
     - https://github.com/xxczaki/charts/releases/download/wicek-0.1.0/wicek-0.1.0.tgz
     version: 0.1.0
-generated: "2026-07-15T22:02:23.461474726Z"
+generated: "2026-07-16T02:02:03.645808939Z"
