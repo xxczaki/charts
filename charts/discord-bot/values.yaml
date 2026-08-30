@@ -75,6 +75,10 @@ serviceAccount:
 # @section -- Redis
 redis:
   architecture: 'standalone'
+  # The public Bitnami Secure Images chart defaults to the mutable `latest` tag.
+  # Pin its multi-architecture digest so installs and upgrades are reproducible.
+  image:
+    digest: "sha256:d75bda00b778ad5e03a639ec36e00f6665a5d7e0f35a6250be5b103fb2117275"
   auth:
     enabled: false
   commonConfiguration: |-
