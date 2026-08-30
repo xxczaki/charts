@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.23.17](https://img.shields.io/badge/Version-0.23.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7fb4d99791b97937fba0ca51121ffe661af4f722](https://img.shields.io/badge/AppVersion-7fb4d99791b97937fba0ca51121ffe661af4f722-informational?style=flat-square)
+![Version: 0.24.0](https://img.shields.io/badge/Version-0.24.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7fb4d99791b97937fba0ca51121ffe661af4f722](https://img.shields.io/badge/AppVersion-7fb4d99791b97937fba0ca51121ffe661af4f722-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -20,7 +20,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | redis | ~25.5.3 |
+| https://charts.bitnami.com/bitnami | redis | ~28.0.12 |
 
 ## Values
 
@@ -53,7 +53,7 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| redis | object | `{"architecture":"standalone","auth":{"enabled":false},"commonConfiguration":"# Enable AOF https://redis.io/topics/persistence#append-only-file\nappendonly yes\n# Disable RDB persistence, AOF persistence already enabled.\nsave \"\""}` | General configuration of the Redis instance used for query caching and storing usage statistics |
+| redis | object | `{"architecture":"standalone","auth":{"enabled":false},"commonConfiguration":"# Enable AOF https://redis.io/topics/persistence#append-only-file\nappendonly yes\n# Disable RDB persistence, AOF persistence already enabled.\nsave \"\"","image":{"digest":"sha256:d75bda00b778ad5e03a639ec36e00f6665a5d7e0f35a6250be5b103fb2117275"}}` | General configuration of the Redis instance used for query caching and storing usage statistics |
 
 ### Other Values
 
