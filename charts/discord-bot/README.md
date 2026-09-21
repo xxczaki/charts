@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.29.7](https://img.shields.io/badge/Version-0.29.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 43f7a4063e233a10bcd9bf3bcbbfe3f26d563513](https://img.shields.io/badge/AppVersion-43f7a4063e233a10bcd9bf3bcbbfe3f26d563513-informational?style=flat-square)
+![Version: 0.30.0](https://img.shields.io/badge/Version-0.30.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 43f7a4063e233a10bcd9bf3bcbbfe3f26d563513](https://img.shields.io/badge/AppVersion-43f7a4063e233a10bcd9bf3bcbbfe3f26d563513-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -20,7 +20,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | redis | ~28.2.1 |
+| https://charts.bitnami.com/bitnami | redis | ~28.2.2 |
 
 ## Values
 
