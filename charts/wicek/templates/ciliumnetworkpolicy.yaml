@@ -48,6 +48,10 @@ spec:
         - ports:
             - port: "443"
               protocol: TCP
+            {{- range $.Values.networkPolicy.extraEgressPorts }}
+            - port: {{ . | quote }}
+              protocol: TCP
+            {{- end }}
     {{- end }}
     {{- with .Values.networkPolicy.cilium.allowedCIDRs }}
     # HTTPS to allowlisted CIDRs (e.g. a LAN controller).
@@ -59,6 +63,10 @@ spec:
         - ports:
             - port: "443"
               protocol: TCP
+            {{- range $.Values.networkPolicy.extraEgressPorts }}
+            - port: {{ . | quote }}
+              protocol: TCP
+            {{- end }}
     {{- end }}
     {{- if .Values.networkPolicy.tailscale.enabled }}
     # SSH + sidecar service ports to the Tailscale namespace.
