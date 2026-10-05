@@ -201,6 +201,10 @@ networkPolicy:
   # Cilium CNI). Use "cilium" to restrict egress to specific domains.
   # @section -- Network Policy
   provider: standard
+  # -- Extra TCP egress ports, e.g. 993 for the broker's IMAP mail gateway. "standard" allows them to any host,
+  # "cilium" only to allowedFQDNs and allowedCIDRs.
+  # @section -- Network Policy
+  extraEgressPorts: []
   tailscale:
     # -- Allow egress to a Tailscale namespace (SSH and sidecar service ports). Applies to both providers.
     # @section -- Network Policy
