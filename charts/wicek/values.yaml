@@ -95,7 +95,7 @@ webhooks:
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
-  tag: "7d5b096abc1c1cf88e04e45b302ae1aed6827dd2"
+  tag: "9551ef857d8e289824b352a000699bede65b0c37"
 ssh:
   # -- SSH known_hosts entries (`host keytype key`, one per line), mounted at
   # /etc/ssh/ssh_known_hosts so host keys are trusted across redeploys. Get them
