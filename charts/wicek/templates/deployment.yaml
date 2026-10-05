@@ -21,7 +21,7 @@ spec:
         checksum/known-hosts: {{ .Values.ssh.knownHosts | sha256sum }}
         {{- end }}
         {{- if .Values.broker.enabled }}
-        checksum/broker-routes: {{ .Values.broker.routes | toJson | sha256sum }}
+        checksum/broker-config: {{ .Values.broker.hosts | toJson | sha256sum }}
         {{- end }}
       {{- end }}
     spec:
@@ -62,24 +62,31 @@ spec:
           {{- end }}
           env:
             - name: BROKER_CONFIG
-              value: /etc/broker/routes.json
+              value: /etc/broker/config.json
+            - name: BROKER_PORT
+              value: "{{ .Values.broker.port }}"
             {{- if .Values.broker.sshKeys }}
             - name: SSH_AUTH_SOCK
               value: /run/ssh-agent/agent.sock
             - name: SSH_KEY_FILES
               value: {{ join " " .Values.broker.sshKeys | quote }}
             {{- end }}
-          {{- with .Values.broker.routes }}
           startupProbe:
             exec:
-              command: ["nc", "-z", "127.0.0.1", "{{ (first .).port }}"]
+              command:
+                - python3
+                - -c
+                - "import socket; socket.create_connection(('127.0.0.1', {{ .Values.broker.port }}), 1)"
             periodSeconds: 1
-            failureThreshold: 30
-          {{- end }}
+            failureThreshold: 60
           volumeMounts:
-            - name: broker-routes
+            - name: broker-config
               mountPath: /etc/broker
               readOnly: true
+            - name: broker-state
+              mountPath: /run/broker-state
+            - name: broker-ca
+              mountPath: /run/broker-ca
             {{- range .Values.broker.secrets }}
             - name: broker-secret-{{ .name }}
               mountPath: /run/broker/{{ .name }}
@@ -144,13 +151,31 @@ spec:
             - name: WEBHOOK_PORT
               value: "{{ .Values.webhooks.port }}"
             {{- if .Values.broker.enabled }}
-            {{- range .Values.broker.routes }}
-            - name: {{ .name | upper | replace "-" "_" }}_URL
-              value: "http://127.0.0.1:{{ .port }}"
+            {{- $proxy := printf "http://127.0.0.1:%v" .Values.broker.port }}
+            {{- $noProxy := join "," (concat (list "localhost" "127.0.0.1") .Values.broker.noProxy) }}
+            {{- range $name := list "HTTP_PROXY" "http_proxy" "HTTPS_PROXY" "https_proxy" }}
+            - name: {{ $name }}
+              value: {{ $proxy | quote }}
+            {{- end }}
+            {{- range $name := list "NO_PROXY" "no_proxy" }}
+            - name: {{ $name }}
+              value: {{ $noProxy | quote }}
+            {{- end }}
+            - name: NODE_USE_ENV_PROXY
+              value: "1"
+            - name: NODE_EXTRA_CA_CERTS
+              value: /run/broker-ca/ca.pem
+            {{- range $name := list "SSL_CERT_FILE" "CURL_CA_BUNDLE" "GIT_SSL_CAINFO" "REQUESTS_CA_BUNDLE" }}
+            - name: {{ $name }}
+              value: /run/broker-ca/bundle.pem
             {{- end }}
             {{- if .Values.broker.sshKeys }}
             - name: SSH_AUTH_SOCK
               value: /run/ssh-agent/agent.sock
+            {{- end }}
+            {{- range $name, $value := .Values.broker.placeholderEnv }}
+            - name: {{ $name }}
+              value: {{ $value | quote }}
             {{- end }}
             {{- end }}
             {{- if and .Values.secrets.githubWebhookSecret.name .Values.secrets.githubWebhookSecret.key }}
@@ -230,9 +255,14 @@ spec:
               mountPath: /etc/ssh/wicek
               readOnly: true
             {{- end }}
-            {{- if and .Values.broker.enabled .Values.broker.sshKeys }}
+            {{- if .Values.broker.enabled }}
+            - name: broker-ca
+              mountPath: /run/broker-ca
+              readOnly: true
+            {{- if .Values.broker.sshKeys }}
             - name: ssh-agent
               mountPath: /run/ssh-agent
+            {{- end }}
             {{- end }}
             {{- if .Values.ssh.knownHosts }}
             - name: ssh-known-hosts
@@ -281,9 +311,14 @@ spec:
             name: {{ include "wicek.fullname" . }}-ssh-known-hosts
         {{- end }}
         {{- if .Values.broker.enabled }}
-        - name: broker-routes
+        - name: broker-config
           configMap:
-            name: {{ include "wicek.fullname" . }}-broker-routes
+            name: {{ include "wicek.fullname" . }}-broker
+        - name: broker-state
+          emptyDir:
+            medium: Memory
+        - name: broker-ca
+          emptyDir: {}
         {{- range .Values.broker.secrets }}
         - name: broker-secret-{{ .name }}
           secret:
