@@ -9,10 +9,21 @@ spec:
   endpointSelector:
     matchLabels:
       {{- include "wicek.selectorLabels" . | nindent 6 }}
-  # Outbound-only bot: deny all ingress, and deny egress except the rules below.
+  # Deny ingress except the webhook port, and deny egress except the rules below.
   enableDefaultDeny:
     ingress: true
     egress: true
+  {{- if .Values.webhooks.service.enabled }}
+  ingress:
+    # Webhook server, reached through the Tailscale Ingress proxy
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: {{ .Values.networkPolicy.tailscale.namespace }}
+      toPorts:
+        - ports:
+            - port: {{ .Values.webhooks.port | quote }}
+              protocol: TCP
+  {{- end }}
   egress:
     # DNS via kube-dns. The L7 DNS rule lets Cilium learn resolved IPs so the
     # toFQDNs rules below can match; queries themselves are unrestricted.

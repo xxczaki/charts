@@ -54,6 +54,22 @@ spec:
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: webhooks
+              containerPort: {{ .Values.webhooks.port }}
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: webhooks
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: webhooks
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 5
           env:
             - name: DISCORD_TOKEN
               valueFrom:
@@ -77,6 +93,22 @@ spec:
               value: "production"
             - name: APP_VERSION
               value: "{{ .Chart.Version }}"
+            - name: WEBHOOK_PORT
+              value: "{{ .Values.webhooks.port }}"
+            {{- if and .Values.secrets.githubWebhookSecret.name .Values.secrets.githubWebhookSecret.key }}
+            - name: GITHUB_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.githubWebhookSecret.name }}
+                  key: {{ .Values.secrets.githubWebhookSecret.key }}
+            {{- end }}
+            {{- if and .Values.secrets.grafanaWebhookToken.name .Values.secrets.grafanaWebhookToken.key }}
+            - name: GRAFANA_WEBHOOK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.grafanaWebhookToken.name }}
+                  key: {{ .Values.secrets.grafanaWebhookToken.key }}
+            {{- end }}
             {{- if and .Values.secrets.ghToken.name .Values.secrets.ghToken.key }}
             - name: GH_TOKEN
               valueFrom:
