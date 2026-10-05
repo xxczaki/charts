@@ -27,7 +27,6 @@ Minimal Claude Code agent with Discord bot interface
 | broker.image.repository | string | `"ghcr.io/xxczaki/wicek-broker"` | Broker image repository |
 | broker.image.tag | string | `""` | Broker image tag (defaults to image.tag, both are built from the same commit) |
 | broker.noProxy | list | `[".anthropic.com",".claude.ai",".claude.com",".discord.com",".discord.gg",".discordapp.com"]` | Hosts that bypass the broker (NO_PROXY), in addition to localhost |
-| broker.placeholderEnv | object | `{}` | Placeholder environment variables for the agent container, for tools that refuse to run without a credential (e.g. `GH_TOKEN: injected-by-broker`) |
 | broker.port | int | `3128` | Port the broker listens on (127.0.0.1 only) |
 | broker.secrets | list | `[]` | Secrets mounted read-only into the broker at /run/broker/<name>/, e.g. `[{name: grafana-cloud, secretName: grafana-cloud}]` |
 | broker.sshKeys | list | `[]` | SSH private key files (under /run/broker/) to load into ssh-agent. When set, the agent container gets SSH_AUTH_SOCK instead of a key. |
@@ -74,16 +73,8 @@ Minimal Claude Code agent with Discord bot interface
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| secrets.appleAppPassword | object | `{"key":"","name":""}` | Points to a Secret containing the Apple app-specific password (iCloud CalDAV) When appleId and appleAppPassword are both set, APPLE_ID/APPLE_APP_PASSWORD are injected. |
-| secrets.appleId | object | `{"key":"","name":""}` | Points to a Secret containing the Apple ID email (iCloud CalDAV) |
 | secrets.discordToken | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
-| secrets.ghToken | object | `{"key":"","name":""}` | Points to a Secret containing a GitHub token (GH_TOKEN) Authenticates the `gh` CLI and git pushes. When unset, GH_TOKEN is not injected. |
-| secrets.grafanaApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the Grafana API key |
-| secrets.haSSHKey | object | `{"key":"","name":""}` | Points to a Secret containing the Home Assistant SSH key |
-| secrets.haToken | object | `{"key":"","name":""}` | Points to a Secret containing the Home Assistant long-lived access token Authenticates to the Home Assistant MCP server. When unset, HA_TOKEN is not injected. |
 | secrets.oauthToken | object | `{"key":"","name":""}` | Points to a Secret containing the Claude Code OAuth token Generated via `claude setup-token` |
-| secrets.unifiPassword | object | `{"key":"","name":""}` | Points to a Secret containing the UniFi controller password |
-| secrets.unifiUsername | object | `{"key":"","name":""}` | Points to a Secret containing the UniFi controller username When unifiUsername and unifiPassword are both set, UNIFI_USERNAME/UNIFI_PASSWORD are injected. |
 
 ### Webhooks
 
