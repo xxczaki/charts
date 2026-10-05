@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.291](https://img.shields.io/badge/Version-0.1.291-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2ece2d9cc0a5380b0f07fdca53599705669ae6df](https://img.shields.io/badge/AppVersion-2ece2d9cc0a5380b0f07fdca53599705669ae6df-informational?style=flat-square)
+![Version: 0.1.292](https://img.shields.io/badge/Version-0.1.292-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 53f0dcb691f2477941d2ed7d63e30a8a959bf82f](https://img.shields.io/badge/AppVersion-53f0dcb691f2477941d2ed7d63e30a8a959bf82f-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -87,7 +87,7 @@ Minimal Claude Code agent with Discord bot interface
 | chromium.resources.requests.memory | string | `"256Mi"` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"ghcr.io/xxczaki/wicek"` |  |
-| image.tag | string | `"2ece2d9cc0a5380b0f07fdca53599705669ae6df"` |  |
+| image.tag | string | `"53f0dcb691f2477941d2ed7d63e30a8a959bf82f"` |  |
 | persistence.accessModes[0] | string | `"ReadWriteOnce"` |  |
 | persistence.storageClass | string | `""` |  |
 | resources.limits.cpu | string | `"500m"` |  |
