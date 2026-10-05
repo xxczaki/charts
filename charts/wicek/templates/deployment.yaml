@@ -173,10 +173,6 @@ spec:
             - name: SSH_AUTH_SOCK
               value: /run/ssh-agent/agent.sock
             {{- end }}
-            {{- range $name, $value := .Values.broker.placeholderEnv }}
-            - name: {{ $name }}
-              value: {{ $value | quote }}
-            {{- end }}
             {{- end }}
             {{- if and .Values.secrets.githubWebhookSecret.name .Values.secrets.githubWebhookSecret.key }}
             - name: GITHUB_WEBHOOK_SECRET

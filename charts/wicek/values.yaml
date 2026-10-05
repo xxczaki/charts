@@ -85,10 +85,6 @@ broker:
     - .discord.com
     - .discord.gg
     - .discordapp.com
-  # -- Placeholder environment variables for the agent container, for tools that refuse to
-  # run without a credential (e.g. `GH_TOKEN: injected-by-broker`)
-  # @section -- Broker
-  placeholderEnv: {}
   resources:
     requests:
       memory: "64Mi"
