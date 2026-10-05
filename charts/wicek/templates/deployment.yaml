@@ -192,55 +192,6 @@ spec:
                   name: {{ .Values.secrets.grafanaWebhookToken.name }}
                   key: {{ .Values.secrets.grafanaWebhookToken.key }}
             {{- end }}
-            {{- if and .Values.secrets.ghToken.name .Values.secrets.ghToken.key }}
-            - name: GH_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets.ghToken.name }}
-                  key: {{ .Values.secrets.ghToken.key }}
-            {{- end }}
-            {{- if and .Values.secrets.grafanaApiKey.name .Values.secrets.grafanaApiKey.key }}
-            - name: GRAFANA_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets.grafanaApiKey.name }}
-                  key: {{ .Values.secrets.grafanaApiKey.key }}
-            {{- end }}
-            {{- if and .Values.secrets.haToken.name .Values.secrets.haToken.key }}
-            - name: HA_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets.haToken.name }}
-                  key: {{ .Values.secrets.haToken.key }}
-            {{- end }}
-            {{- if and .Values.secrets.appleId.name .Values.secrets.appleId.key }}
-            - name: APPLE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets.appleId.name }}
-                  key: {{ .Values.secrets.appleId.key }}
-            {{- end }}
-            {{- if and .Values.secrets.appleAppPassword.name .Values.secrets.appleAppPassword.key }}
-            - name: APPLE_APP_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets.appleAppPassword.name }}
-                  key: {{ .Values.secrets.appleAppPassword.key }}
-            {{- end }}
-            {{- if and .Values.secrets.unifiUsername.name .Values.secrets.unifiUsername.key }}
-            - name: UNIFI_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets.unifiUsername.name }}
-                  key: {{ .Values.secrets.unifiUsername.key }}
-            {{- end }}
-            {{- if and .Values.secrets.unifiPassword.name .Values.secrets.unifiPassword.key }}
-            - name: UNIFI_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets.unifiPassword.name }}
-                  key: {{ .Values.secrets.unifiPassword.key }}
-            {{- end }}
           volumeMounts:
             - name: data
               mountPath: /data
@@ -250,11 +201,6 @@ spec:
               mountPath: /usr/local/bin/gh
               subPath: gh
               readOnly: true
-            {{- if and .Values.secrets.haSSHKey.name .Values.secrets.haSSHKey.key }}
-            - name: ha-ssh-key
-              mountPath: /etc/ssh/wicek
-              readOnly: true
-            {{- end }}
             {{- if .Values.broker.enabled }}
             - name: broker-ca
               mountPath: /run/broker-ca
@@ -299,12 +245,6 @@ spec:
             claimName: {{ include "wicek.fullname" . }}-claude
         - name: extra-bin
           emptyDir: {}
-        {{- if and .Values.secrets.haSSHKey.name .Values.secrets.haSSHKey.key }}
-        - name: ha-ssh-key
-          secret:
-            secretName: {{ .Values.secrets.haSSHKey.name }}
-            defaultMode: 0400
-        {{- end }}
         {{- if .Values.ssh.knownHosts }}
         - name: ssh-known-hosts
           configMap:

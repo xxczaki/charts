@@ -10,50 +10,6 @@ secrets:
   discordToken:
     name: ""
     key: ""
-  # -- Points to a Secret containing a GitHub token (GH_TOKEN)
-  # Authenticates the `gh` CLI and git pushes. When unset, GH_TOKEN is not injected.
-  # @section -- Authentication
-  ghToken:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the Grafana API key
-  # @section -- Authentication
-  grafanaApiKey:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the Home Assistant long-lived access token
-  # Authenticates to the Home Assistant MCP server. When unset, HA_TOKEN is not injected.
-  # @section -- Authentication
-  haToken:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the Apple ID email (iCloud CalDAV)
-  # @section -- Authentication
-  appleId:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the Apple app-specific password (iCloud CalDAV)
-  # When appleId and appleAppPassword are both set, APPLE_ID/APPLE_APP_PASSWORD are injected.
-  # @section -- Authentication
-  appleAppPassword:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the UniFi controller username
-  # When unifiUsername and unifiPassword are both set, UNIFI_USERNAME/UNIFI_PASSWORD are injected.
-  # @section -- Authentication
-  unifiUsername:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the UniFi controller password
-  # @section -- Authentication
-  unifiPassword:
-    name: ""
-    key: ""
-  # -- Points to a Secret containing the Home Assistant SSH key
-  # @section -- Authentication
-  haSSHKey:
-    name: ""
-    key: ""
   # -- Points to a Secret containing the GitHub webhook secret (X-Hub-Signature-256)
   # When unset, GITHUB_WEBHOOK_SECRET is not injected and /hooks/github returns 404.
   # @section -- Webhooks
