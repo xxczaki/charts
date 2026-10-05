@@ -1,0 +1,10 @@
+{{- if .Values.broker.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "wicek.fullname" . }}-broker-routes
+  labels:
+    {{- include "wicek.labels" . | nindent 4 }}
+data:
+  routes.json: {{ dict "routes" .Values.broker.routes | toJson | quote }}
+{{- end }}

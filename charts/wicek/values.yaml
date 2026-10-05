@@ -92,6 +92,38 @@ webhooks:
     # -- Expose the ingress publicly via Tailscale Funnel (tailscale.com/funnel annotation)
     # @section -- Webhooks
     funnel: true
+broker:
+  # -- Run the credential broker sidecar. Service credentials are mounted only into it;
+  # the agent container reaches them through localhost routes and ssh-agent.
+  # @section -- Broker
+  enabled: false
+  image:
+    # -- Broker image repository
+    # @section -- Broker
+    repository: ghcr.io/xxczaki/wicek-broker
+    # -- Broker image tag (defaults to image.tag, both are built from the same commit)
+    # @section -- Broker
+    tag: ""
+  # -- Secrets mounted read-only into the broker at /run/broker/<name>/, e.g.
+  # `[{name: grafana-cloud, secretName: wicek-grafana-cloud}]`
+  # @section -- Broker
+  secrets: []
+  # -- Routes rendered to /etc/broker/routes.json (see the wicek README for the format).
+  # Each route also sets <NAME>_URL=http://127.0.0.1:<port> in the agent container,
+  # e.g. `home-assistant` becomes HOME_ASSISTANT_URL.
+  # @section -- Broker
+  routes: []
+  # -- SSH private key files (under /run/broker/) to load into ssh-agent.
+  # When set, the agent container gets SSH_AUTH_SOCK instead of a key.
+  # @section -- Broker
+  sshKeys: []
+  resources:
+    requests:
+      memory: "32Mi"
+      cpu: "10m"
+    limits:
+      memory: "128Mi"
+      cpu: "200m"
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
