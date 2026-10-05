@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.295](https://img.shields.io/badge/Version-0.1.295-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7d5b096abc1c1cf88e04e45b302ae1aed6827dd2](https://img.shields.io/badge/AppVersion-7d5b096abc1c1cf88e04e45b302ae1aed6827dd2-informational?style=flat-square)
+![Version: 0.1.296](https://img.shields.io/badge/Version-0.1.296-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7d5b096abc1c1cf88e04e45b302ae1aed6827dd2](https://img.shields.io/badge/AppVersion-7d5b096abc1c1cf88e04e45b302ae1aed6827dd2-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -69,6 +69,18 @@ Minimal Claude Code agent with Discord bot interface
 | secrets.oauthToken | object | `{"key":"","name":""}` | Points to a Secret containing the Claude Code OAuth token Generated via `claude setup-token` |
 | secrets.unifiPassword | object | `{"key":"","name":""}` | Points to a Secret containing the UniFi controller password |
 | secrets.unifiUsername | object | `{"key":"","name":""}` | Points to a Secret containing the UniFi controller username When unifiUsername and unifiPassword are both set, UNIFI_USERNAME/UNIFI_PASSWORD are injected. |
+
+### Webhooks
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| secrets.githubWebhookSecret | object | `{"key":"","name":""}` | Points to a Secret containing the GitHub webhook secret (X-Hub-Signature-256) When unset, GITHUB_WEBHOOK_SECRET is not injected and /hooks/github returns 404. |
+| secrets.grafanaWebhookToken | object | `{"key":"","name":""}` | Points to a Secret containing the Grafana webhook bearer token When unset, GRAFANA_WEBHOOK_TOKEN is not injected and /hooks/grafana returns 404. |
+| webhooks.ingress.enabled | bool | `false` | Create a Tailscale Ingress exposing only /hooks (requires webhooks.service.enabled) |
+| webhooks.ingress.funnel | bool | `true` | Expose the ingress publicly via Tailscale Funnel (tailscale.com/funnel annotation) |
+| webhooks.ingress.hostname | string | `"wicek-hooks"` | Tailnet hostname of the ingress (becomes <hostname>.<tailnet>.ts.net) |
+| webhooks.port | int | `8080` | Port of the webhook HTTP server (/hooks/github, /hooks/grafana, /healthz) |
+| webhooks.service.enabled | bool | `false` | Expose the webhook port as a ClusterIP Service and allow ingress to it from the Tailscale namespace |
 
 ### SSH
 
