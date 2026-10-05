@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.298](https://img.shields.io/badge/Version-0.1.298-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fcefee2f5dcac801ac406c16b6c6d191fcac1a17](https://img.shields.io/badge/AppVersion-fcefee2f5dcac801ac406c16b6c6d191fcac1a17-informational?style=flat-square)
+![Version: 0.1.299](https://img.shields.io/badge/Version-0.1.299-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: fcefee2f5dcac801ac406c16b6c6d191fcac1a17](https://img.shields.io/badge/AppVersion-fcefee2f5dcac801ac406c16b6c6d191fcac1a17-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -17,6 +17,20 @@ Minimal Claude Code agent with Discord bot interface
 * <https://github.com/xxczaki/charts/tree/main/charts/wicek>
 
 ## Values
+
+### Broker
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| broker.enabled | bool | `false` | Run the credential broker sidecar (mitmproxy). Service credentials are mounted only into it; the agent container sends its traffic through it via HTTP(S)_PROXY, trusts its CA, and uses placeholder credentials that the broker replaces for listed hosts. |
+| broker.hosts | list | `[]` | Hosts the broker intercepts and how it authenticates to them, rendered to /etc/broker/config.json (see the wicek README for the format) |
+| broker.image.repository | string | `"ghcr.io/xxczaki/wicek-broker"` | Broker image repository |
+| broker.image.tag | string | `""` | Broker image tag (defaults to image.tag, both are built from the same commit) |
+| broker.noProxy | list | `[".anthropic.com",".claude.ai",".claude.com",".discord.com",".discord.gg",".discordapp.com"]` | Hosts that bypass the broker (NO_PROXY), in addition to localhost |
+| broker.placeholderEnv | object | `{}` | Placeholder environment variables for the agent container, for tools that refuse to run without a credential (e.g. `GH_TOKEN: injected-by-broker`) |
+| broker.port | int | `3128` | Port the broker listens on (127.0.0.1 only) |
+| broker.secrets | list | `[]` | Secrets mounted read-only into the broker at /run/broker/<name>/, e.g. `[{name: grafana-cloud, secretName: grafana-cloud}]` |
+| broker.sshKeys | list | `[]` | SSH private key files (under /run/broker/) to load into ssh-agent. When set, the agent container gets SSH_AUTH_SOCK instead of a key. |
 
 ### Browser
 
@@ -92,6 +106,10 @@ Minimal Claude Code agent with Discord bot interface
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| broker.resources.limits.cpu | string | `"300m"` |  |
+| broker.resources.limits.memory | string | `"256Mi"` |  |
+| broker.resources.requests.cpu | string | `"10m"` |  |
+| broker.resources.requests.memory | string | `"64Mi"` |  |
 | chromium.image | string | `"chromedp/headless-shell:stable"` |  |
 | chromium.resources.limits.cpu | string | `"500m"` |  |
 | chromium.resources.limits.memory | string | `"512Mi"` |  |
