@@ -58,6 +58,7 @@ Minimal Claude Code agent with Discord bot interface
 | networkPolicy.cilium.allowedCIDRs | list | `[]` | CIDRs the agent may reach over HTTPS, e.g. a LAN controller (provider "cilium" only). |
 | networkPolicy.cilium.allowedFQDNs | list | `[]` | Domains the agent may reach over HTTPS. Everything else is denied (provider "cilium" only). |
 | networkPolicy.enabled | bool | `true` | Restrict pod traffic (the bot is outbound-only; ingress is always denied) |
+| networkPolicy.extraEgressPorts | list | `[]` | Extra TCP egress ports, e.g. 993 for the broker's IMAP mail gateway. "standard" allows them to any host, "cilium" only to allowedFQDNs and allowedCIDRs. |
 | networkPolicy.provider | string | `"standard"` | Policy provider: "standard" (portable, port-based NetworkPolicy) or "cilium" (DNS-aware FQDN egress allowlist with default-deny; requires the Cilium CNI). Use "cilium" to restrict egress to specific domains. |
 | networkPolicy.tailscale.enabled | bool | `true` | Allow egress to a Tailscale namespace (SSH and sidecar service ports). Applies to both providers. |
 | networkPolicy.tailscale.namespace | string | `"tailscale"` | Namespace running the Tailscale operator/egress proxies |
