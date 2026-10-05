@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.289](https://img.shields.io/badge/Version-0.1.289-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: b6355f875b37370035a7a7e75c9a4452a0e318ec](https://img.shields.io/badge/AppVersion-b6355f875b37370035a7a7e75c9a4452a0e318ec-informational?style=flat-square)
+![Version: 0.1.290](https://img.shields.io/badge/Version-0.1.290-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: b6355f875b37370035a7a7e75c9a4452a0e318ec](https://img.shields.io/badge/AppVersion-b6355f875b37370035a7a7e75c9a4452a0e318ec-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -69,6 +69,12 @@ Minimal Claude Code agent with Discord bot interface
 | secrets.oauthToken | object | `{"key":"","name":""}` | Points to a Secret containing the Claude Code OAuth token Generated via `claude setup-token` |
 | secrets.unifiPassword | object | `{"key":"","name":""}` | Points to a Secret containing the UniFi controller password |
 | secrets.unifiUsername | object | `{"key":"","name":""}` | Points to a Secret containing the UniFi controller username When unifiUsername and unifiPassword are both set, UNIFI_USERNAME/UNIFI_PASSWORD are injected. |
+
+### SSH
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| ssh.knownHosts | string | `""` | SSH known_hosts entries (`host keytype key`, one per line), mounted at /etc/ssh/ssh_known_hosts so host keys are trusted across redeploys. Get them with `ssh-keyscan <host>`. When empty, no file is mounted. |
 
 ### Other Values
 
