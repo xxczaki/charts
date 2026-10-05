@@ -64,7 +64,7 @@ env:
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
-  tag: "2ece2d9cc0a5380b0f07fdca53599705669ae6df"
+  tag: "53f0dcb691f2477941d2ed7d63e30a8a959bf82f"
 ssh:
   # -- SSH known_hosts entries (`host keytype key`, one per line), mounted at
   # /etc/ssh/ssh_known_hosts so host keys are trusted across redeploys. Get them
