@@ -12,8 +12,20 @@ spec:
   policyTypes:
     - Ingress
     - Egress
+  {{- if .Values.webhooks.service.enabled }}
+  # Ingress is denied except the webhook server, reached through the Tailscale Ingress proxy
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.networkPolicy.tailscale.namespace }}
+      ports:
+        - port: {{ .Values.webhooks.port }}
+          protocol: TCP
+  {{- else }}
   # No ingress – bot is outbound-only
   ingress: []
+  {{- end }}
   egress:
     # DNS
     - ports:

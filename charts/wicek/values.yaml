@@ -54,6 +54,18 @@ secrets:
   haSSHKey:
     name: ""
     key: ""
+  # -- Points to a Secret containing the GitHub webhook secret (X-Hub-Signature-256)
+  # When unset, GITHUB_WEBHOOK_SECRET is not injected and /hooks/github returns 404.
+  # @section -- Webhooks
+  githubWebhookSecret:
+    name: ""
+    key: ""
+  # -- Points to a Secret containing the Grafana webhook bearer token
+  # When unset, GRAFANA_WEBHOOK_TOKEN is not injected and /hooks/grafana returns 404.
+  # @section -- Webhooks
+  grafanaWebhookToken:
+    name: ""
+    key: ""
 env:
   # -- Discord application client ID
   # @section -- Bot
@@ -61,6 +73,25 @@ env:
   # -- Comma-separated Discord user IDs allowed to interact
   # @section -- Bot
   allowedUserIds: ""
+webhooks:
+  # -- Port of the webhook HTTP server (/hooks/github, /hooks/grafana, /healthz)
+  # @section -- Webhooks
+  port: 8080
+  service:
+    # -- Expose the webhook port as a ClusterIP Service and allow ingress to it
+    # from the Tailscale namespace
+    # @section -- Webhooks
+    enabled: false
+  ingress:
+    # -- Create a Tailscale Ingress exposing only /hooks (requires webhooks.service.enabled)
+    # @section -- Webhooks
+    enabled: false
+    # -- Tailnet hostname of the ingress (becomes <hostname>.<tailnet>.ts.net)
+    # @section -- Webhooks
+    hostname: wicek-hooks
+    # -- Expose the ingress publicly via Tailscale Funnel (tailscale.com/funnel annotation)
+    # @section -- Webhooks
+    funnel: true
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always

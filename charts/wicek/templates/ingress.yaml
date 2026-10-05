@@ -1,0 +1,28 @@
+{{- if and .Values.webhooks.service.enabled .Values.webhooks.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "wicek.fullname" . }}
+  labels:
+    {{- include "wicek.labels" . | nindent 4 }}
+  {{- if .Values.webhooks.ingress.funnel }}
+  annotations:
+    tailscale.com/funnel: "true"
+  {{- end }}
+spec:
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - {{ .Values.webhooks.ingress.hostname }}
+  # Only /hooks is routed; everything else (including /healthz) is not exposed.
+  rules:
+    - http:
+        paths:
+          - path: /hooks
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "wicek.fullname" . }}
+                port:
+                  name: webhooks
+{{- end }}
