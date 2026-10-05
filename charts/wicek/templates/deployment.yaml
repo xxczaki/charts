@@ -15,6 +15,10 @@ spec:
     metadata:
       labels:
         {{- include "wicek.labels" . | nindent 8 }}
+      {{- if .Values.ssh.knownHosts }}
+      annotations:
+        checksum/known-hosts: {{ .Values.ssh.knownHosts | sha256sum }}
+      {{- end }}
     spec:
       terminationGracePeriodSeconds: 15
       serviceAccountName: {{ include "wicek.serviceAccountName" . }}
@@ -136,6 +140,12 @@ spec:
               mountPath: /etc/ssh/wicek
               readOnly: true
             {{- end }}
+            {{- if .Values.ssh.knownHosts }}
+            - name: ssh-known-hosts
+              mountPath: /etc/ssh/ssh_known_hosts
+              subPath: ssh_known_hosts
+              readOnly: true
+            {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -170,4 +180,9 @@ spec:
           secret:
             secretName: {{ .Values.secrets.haSSHKey.name }}
             defaultMode: 0400
+        {{- end }}
+        {{- if .Values.ssh.knownHosts }}
+        - name: ssh-known-hosts
+          configMap:
+            name: {{ include "wicek.fullname" . }}-ssh-known-hosts
         {{- end }}

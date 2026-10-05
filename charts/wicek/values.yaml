@@ -65,6 +65,12 @@ image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
   tag: "b6355f875b37370035a7a7e75c9a4452a0e318ec"
+ssh:
+  # -- SSH known_hosts entries (`host keytype key`, one per line), mounted at
+  # /etc/ssh/ssh_known_hosts so host keys are trusted across redeploys. Get them
+  # with `ssh-keyscan <host>`. When empty, no file is mounted.
+  # @section -- SSH
+  knownHosts: ""
 serviceAccount:
   create: true
   annotations: {}
