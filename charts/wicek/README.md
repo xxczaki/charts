@@ -75,6 +75,7 @@ Minimal Claude Code agent with Discord bot interface
 |-----|------|---------|-------------|
 | readers | list | `[]` | Isolated readers: each answers questions about one untrusted data source from its own VM (runtimeClassName) with Bash only, behind its own credential broker pod that reaches only the listed hosts (plus the Claude API). Answers go straight to the user, never to the agent. Requires Cilium and a VM RuntimeClass. Each entry: name, description (shown to the agent), prompt (the reader's instructions and API notes), hosts (broker host entries, same format as broker.hosts), secrets (mounted into the broker at /run/broker/<name>/, same format as broker.secrets), and optional memory and model. |
 | readersDefaults.brokerPort | int | `3128` | Port each reader's broker listens on |
+| readersDefaults.callbackBaseUrl | string | `""` | Public base URL of the webhook server (e.g. the Funnel ingress). When set, each reader gets READER_CALLBACK_URL=<base>/hooks/callback/<name> as the redirect URL for browser logins. |
 | readersDefaults.memory | string | `"768Mi"` | Reader memory (request and limit, which is also the VM size) |
 | readersDefaults.model | string | `"sonnet"` | Claude model for readers |
 | readersDefaults.runtimeClassName | string | `"kata-qemu"` | RuntimeClass that runs each reader in its own VM |
