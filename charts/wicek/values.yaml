@@ -169,6 +169,10 @@ readersDefaults:
   # -- Port each reader's broker listens on
   # @section -- Readers
   brokerPort: 3128
+  # -- Public base URL of the webhook server (e.g. the Funnel ingress). When set, each reader
+  # gets READER_CALLBACK_URL=<base>/hooks/callback/<name> as the redirect URL for browser logins.
+  # @section -- Readers
+  callbackBaseUrl: ""
 networkPolicy:
   # -- Restrict pod traffic (the bot is outbound-only; ingress is always denied)
   # @section -- Network Policy

@@ -226,6 +226,10 @@ spec:
               value: /state
             - name: READER_MODEL
               value: {{ $reader.model | default $.Values.readersDefaults.model | quote }}
+            {{- with $.Values.readersDefaults.callbackBaseUrl }}
+            - name: READER_CALLBACK_URL
+              value: {{ printf "%s/hooks/callback/%s" (trimSuffix "/" .) $reader.name | quote }}
+            {{- end }}
           ports:
             - name: http
               containerPort: 8080
