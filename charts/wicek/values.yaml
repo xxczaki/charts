@@ -144,6 +144,31 @@ chromium:
     limits:
       memory: "512Mi"
       cpu: "500m"
+# -- Isolated readers: each answers questions about one untrusted data source from its own
+# VM (runtimeClassName) with Bash only, behind its own credential broker pod that reaches
+# only the listed hosts (plus the Claude API). Answers go straight to the user, never to
+# the agent. Requires Cilium and a VM RuntimeClass. Each entry: name, description (shown
+# to the agent), prompt (the reader's instructions and API notes), hosts (broker host
+# entries, same format as broker.hosts), secrets (mounted into the broker at
+# /run/broker/<name>/, same format as broker.secrets), and optional memory and model.
+# @section -- Readers
+readers: []
+readersDefaults:
+  # -- RuntimeClass that runs each reader in its own VM
+  # @section -- Readers
+  runtimeClassName: kata-qemu
+  # -- Reader memory (request and limit, which is also the VM size)
+  # @section -- Readers
+  memory: 768Mi
+  # -- Claude model for readers
+  # @section -- Readers
+  model: sonnet
+  # -- Persistent state (IDs, expiry dates) for each reader
+  # @section -- Readers
+  stateSize: 128Mi
+  # -- Port each reader's broker listens on
+  # @section -- Readers
+  brokerPort: 3128
 networkPolicy:
   # -- Restrict pod traffic (the bot is outbound-only; ingress is always denied)
   # @section -- Network Policy

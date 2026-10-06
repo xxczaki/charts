@@ -1,0 +1,389 @@
+{{- range $reader := .Values.readers }}
+{{- $name := printf "%s-reader-%s" (include "wicek.fullname" $) $reader.name }}
+{{- $brokerName := printf "%s-broker" $name }}
+{{- $brokerHost := printf "%s.%s.svc.cluster.local" $brokerName $.Release.Namespace }}
+{{- $proxy := printf "http://%s:%v" $brokerHost $.Values.readersDefaults.brokerPort }}
+{{- $claudeHost := dict "host" "api.anthropic.com" "auth" (dict "type" "bearer" "tokenFile" "/run/broker/claude/token") }}
+{{- $hosts := prepend $reader.hosts $claudeHost }}
+{{- $brokerConfig := dict "blockUnlisted" true "hosts" $hosts | toJson }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "wicek.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: reader
+    wicek.reader: {{ $reader.name }}
+data:
+  prompt.md: {{ $reader.prompt | quote }}
+  broker.json: {{ $brokerConfig | quote }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "wicek.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: reader
+    wicek.reader: {{ $reader.name }}
+spec:
+  accessModes: [ReadWriteOnce]
+  {{- with $.Values.persistence.storageClass }}
+  storageClassName: {{ . }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ $.Values.readersDefaults.stateSize }}
+---
+# The broker holds the reader's credentials and runs as a normal pod, outside the reader's VM
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $brokerName }}
+  labels:
+    {{- include "wicek.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: reader-broker
+    wicek.reader: {{ $reader.name }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      app.kubernetes.io/component: reader-broker
+      wicek.reader: {{ $reader.name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+        app.kubernetes.io/component: reader-broker
+        wicek.reader: {{ $reader.name }}
+      annotations:
+        checksum/broker-config: {{ $brokerConfig | sha256sum }}
+    spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: broker
+          image: "{{ $.Values.broker.image.repository }}:{{ $.Values.broker.image.tag | default $.Values.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          env:
+            - name: BROKER_CONFIG
+              value: /etc/broker/broker.json
+            - name: BROKER_LISTEN_HOST
+              value: 0.0.0.0
+            - name: BROKER_PORT
+              value: "{{ $.Values.readersDefaults.brokerPort }}"
+          ports:
+            - name: proxy
+              containerPort: {{ $.Values.readersDefaults.brokerPort }}
+          readinessProbe:
+            tcpSocket:
+              port: proxy
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          {{- with $.Values.broker.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/broker
+              readOnly: true
+            - name: state
+              mountPath: /run/broker-state
+            - name: ca
+              mountPath: /run/broker-ca
+            - name: claude
+              mountPath: /run/broker/claude
+              readOnly: true
+            {{- range $reader.secrets }}
+            - name: secret-{{ .name }}
+              mountPath: /run/broker/{{ .name }}
+              readOnly: true
+            {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ $name }}
+            items:
+              - key: broker.json
+                path: broker.json
+        - name: state
+          emptyDir:
+            medium: Memory
+        - name: ca
+          emptyDir: {}
+        - name: claude
+          secret:
+            secretName: {{ $.Values.secrets.oauthToken.name }}
+            defaultMode: 0440
+            items:
+              - key: {{ $.Values.secrets.oauthToken.key }}
+                path: token
+        {{- range $reader.secrets }}
+        - name: secret-{{ .name }}
+          secret:
+            secretName: {{ .secretName }}
+            defaultMode: 0440
+        {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $brokerName }}
+  labels:
+    {{- include "wicek.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: reader-broker
+    wicek.reader: {{ $reader.name }}
+spec:
+  selector:
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: reader-broker
+    wicek.reader: {{ $reader.name }}
+  ports:
+    - name: proxy
+      port: {{ $.Values.readersDefaults.brokerPort }}
+      targetPort: proxy
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "wicek.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: reader
+    wicek.reader: {{ $reader.name }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      app.kubernetes.io/component: reader
+      wicek.reader: {{ $reader.name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+        app.kubernetes.io/component: reader
+        wicek.reader: {{ $reader.name }}
+    spec:
+      runtimeClassName: {{ $.Values.readersDefaults.runtimeClassName }}
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      # Only the broker's name resolves, so skip the cluster search domains
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: reader
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          command: ["node", "dist/reader.js"]
+          env:
+            {{- range $variable := list "HTTP_PROXY" "http_proxy" "HTTPS_PROXY" "https_proxy" }}
+            - name: {{ $variable }}
+              value: {{ $proxy | quote }}
+            {{- end }}
+            {{- range $variable := list "NO_PROXY" "no_proxy" }}
+            - name: {{ $variable }}
+              value: "localhost,127.0.0.1"
+            {{- end }}
+            - name: NODE_USE_ENV_PROXY
+              value: "1"
+            - name: CLAUDE_CODE_OAUTH_TOKEN
+              value: injected-by-broker
+            - name: CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC
+              value: "1"
+            - name: HOME
+              value: /home/reader
+            - name: READER_PROMPT_PATH
+              value: /etc/reader/prompt.md
+            - name: READER_STATE_DIR
+              value: /state
+            - name: READER_MODEL
+              value: {{ $reader.model | default $.Values.readersDefaults.model | quote }}
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              memory: {{ $reader.memory | default $.Values.readersDefaults.memory }}
+              cpu: 100m
+            limits:
+              memory: {{ $reader.memory | default $.Values.readersDefaults.memory }}
+              cpu: "1"
+          volumeMounts:
+            - name: prompt
+              mountPath: /etc/reader
+              readOnly: true
+            - name: state
+              mountPath: /state
+            - name: home
+              mountPath: /home/reader
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: prompt
+          configMap:
+            name: {{ $name }}
+            items:
+              - key: prompt.md
+                path: prompt.md
+        - name: state
+          persistentVolumeClaim:
+            claimName: {{ $name }}
+        - name: home
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "wicek.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: reader
+    wicek.reader: {{ $reader.name }}
+spec:
+  selector:
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: reader
+    wicek.reader: {{ $reader.name }}
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+---
+# The reader may only resolve and reach its broker, and only Wicek may reach the reader
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "wicek.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: reader
+    wicek.reader: {{ $reader.name }}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      app.kubernetes.io/component: reader
+      wicek.reader: {{ $reader.name }}
+  enableDefaultDeny:
+    ingress: true
+    egress: true
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            {{- include "wicek.selectorLabels" $ | nindent 12 }}
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s:k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+          rules:
+            dns:
+              - matchName: {{ $brokerHost | quote }}
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: {{ $.Release.Name }}
+            app.kubernetes.io/component: reader-broker
+            wicek.reader: {{ $reader.name }}
+      toPorts:
+        - ports:
+            - port: {{ $.Values.readersDefaults.brokerPort | quote }}
+              protocol: TCP
+---
+# The broker may only be reached by its reader, and only resolve and reach its hosts
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ $brokerName }}
+  labels:
+    {{- include "wicek.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: reader-broker
+    wicek.reader: {{ $reader.name }}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ $.Release.Name }}
+      app.kubernetes.io/component: reader-broker
+      wicek.reader: {{ $reader.name }}
+  enableDefaultDeny:
+    ingress: true
+    egress: true
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: {{ $.Release.Name }}
+            app.kubernetes.io/component: reader
+            wicek.reader: {{ $reader.name }}
+      toPorts:
+        - ports:
+            - port: {{ $.Values.readersDefaults.brokerPort | quote }}
+              protocol: TCP
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s:k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+          rules:
+            dns:
+              {{- range $hosts }}
+              - matchPattern: {{ .host | quote }}
+              {{- end }}
+    - toFQDNs:
+        {{- range $hosts }}
+        - matchPattern: {{ .host | quote }}
+        {{- end }}
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+{{- end }}
