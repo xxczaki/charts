@@ -58,3 +58,15 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Readers as the agent sees them: name, description, and in-cluster URL
+*/}}
+{{- define "wicek.readers" -}}
+{{- $readers := list }}
+{{- range .Values.readers }}
+{{- $host := printf "%s-reader-%s.%s.svc.cluster.local" (include "wicek.fullname" $) .name $.Release.Namespace }}
+{{- $readers = append $readers (dict "name" .name "description" .description "host" $host "url" (printf "http://%s:8080" $host)) }}
+{{- end }}
+{{- toJson $readers }}
+{{- end }}

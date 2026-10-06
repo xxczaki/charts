@@ -68,6 +68,17 @@ spec:
               protocol: TCP
             {{- end }}
     {{- end }}
+    {{- if .Values.readers }}
+    # Readers (isolated pods answering questions about untrusted data)
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: {{ .Release.Name }}
+            app.kubernetes.io/component: reader
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+    {{- end }}
     {{- if .Values.networkPolicy.tailscale.enabled }}
     # SSH + sidecar service ports to the Tailscale namespace.
     - toEndpoints:

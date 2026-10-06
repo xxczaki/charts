@@ -150,9 +150,17 @@ spec:
               value: "{{ .Chart.Version }}"
             - name: WEBHOOK_PORT
               value: "{{ .Values.webhooks.port }}"
+            {{- if .Values.readers }}
+            - name: READERS
+              value: {{ include "wicek.readers" . | quote }}
+            {{- end }}
             {{- if .Values.broker.enabled }}
             {{- $proxy := printf "http://127.0.0.1:%v" .Values.broker.port }}
-            {{- $noProxy := join "," (concat (list "localhost" "127.0.0.1") .Values.broker.noProxy) }}
+            {{- $readerHosts := list }}
+            {{- range (include "wicek.readers" . | fromJsonArray) }}
+            {{- $readerHosts = append $readerHosts .host }}
+            {{- end }}
+            {{- $noProxy := join "," (concat (list "localhost" "127.0.0.1") .Values.broker.noProxy $readerHosts) }}
             {{- range $name := list "HTTP_PROXY" "http_proxy" "HTTPS_PROXY" "https_proxy" }}
             - name: {{ $name }}
               value: {{ $proxy | quote }}
