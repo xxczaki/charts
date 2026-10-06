@@ -95,7 +95,7 @@ broker:
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
-  tag: "f02c0915f6da9e30276ffcd1df3bae117c72d7de"
+  tag: "78ffb030184f4289118f909f8d46a4ba17518763"
 ssh:
   # -- SSH known_hosts entries (`host keytype key`, one per line), mounted at
   # /etc/ssh/ssh_known_hosts so host keys are trusted across redeploys. Get them
