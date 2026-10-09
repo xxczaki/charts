@@ -64,6 +64,10 @@ broker:
   # -- Port the broker listens on (127.0.0.1 only)
   # @section -- Broker
   port: 3128
+  # -- Port for the browser sidecar's traffic (127.0.0.1 only). It only fills website login
+  # placeholders from the `logins` vault and never adds API credentials.
+  # @section -- Broker
+  browserPort: 3129
   # -- Secrets mounted read-only into the broker at /run/broker/<name>/, e.g.
   # `[{name: grafana-cloud, secretName: grafana-cloud}]`
   # @section -- Broker

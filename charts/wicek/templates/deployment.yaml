@@ -65,6 +65,10 @@ spec:
               value: /etc/broker/config.json
             - name: BROKER_PORT
               value: "{{ .Values.broker.port }}"
+            {{- if .Values.chromium.enabled }}
+            - name: BROKER_BROWSER_PORT
+              value: "{{ .Values.broker.browserPort }}"
+            {{- end }}
             {{- if .Values.broker.sshKeys }}
             - name: SSH_AUTH_SOCK
               value: /run/ssh-agent/agent.sock
@@ -227,6 +231,16 @@ spec:
         {{- if .Values.chromium.enabled }}
         - name: chromium
           image: {{ .Values.chromium.image }}
+          {{- if .Values.broker.enabled }}
+          command:
+            - sh
+            - -c
+            - exec /headless-shell/run.sh --proxy-server=127.0.0.1:{{ .Values.broker.browserPort }} --ignore-certificate-errors-spki-list="$(cat /run/broker-ca/spki)"
+          volumeMounts:
+            - name: broker-ca
+              mountPath: /run/broker-ca
+              readOnly: true
+          {{- end }}
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
