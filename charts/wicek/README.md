@@ -36,7 +36,9 @@ Minimal Claude Code agent with Discord bot interface
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| chromium.enabled | bool | `false` | Enable headless Chrome sidecar for browser automation |
+| chromium.enabled | bool | `false` | Enable the Chromium sidecar for browser automation |
+| chromium.image.repository | string | `"ghcr.io/xxczaki/wicek-chromium"` | Chromium image repository. Built and tagged with the app image. |
+| chromium.image.tag | string | `""` | Chromium image tag (defaults to image.tag) |
 
 ### Bot
 
@@ -115,11 +117,10 @@ Minimal Claude Code agent with Discord bot interface
 | broker.resources.limits.memory | string | `"256Mi"` |  |
 | broker.resources.requests.cpu | string | `"10m"` |  |
 | broker.resources.requests.memory | string | `"64Mi"` |  |
-| chromium.image | string | `"chromedp/headless-shell:stable"` |  |
-| chromium.resources.limits.cpu | string | `"500m"` |  |
-| chromium.resources.limits.memory | string | `"512Mi"` |  |
+| chromium.resources.limits.cpu | string | `"1000m"` |  |
+| chromium.resources.limits.memory | string | `"1536Mi"` |  |
 | chromium.resources.requests.cpu | string | `"100m"` |  |
-| chromium.resources.requests.memory | string | `"256Mi"` |  |
+| chromium.resources.requests.memory | string | `"512Mi"` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"ghcr.io/xxczaki/wicek"` |  |
 | image.tag | string | `"d109c597cb28fab50784cb7c6720701507cf9a46"` |  |
