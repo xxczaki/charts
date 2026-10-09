@@ -230,12 +230,12 @@ spec:
           {{- end }}
         {{- if .Values.chromium.enabled }}
         - name: chromium
-          image: {{ .Values.chromium.image }}
+          image: "{{ .Values.chromium.image.repository }}:{{ .Values.chromium.image.tag | default .Values.image.tag | default .Chart.AppVersion }}"
           {{- if .Values.broker.enabled }}
           command:
             - sh
             - -c
-            - exec /headless-shell/run.sh --proxy-server=127.0.0.1:{{ .Values.broker.browserPort }} --ignore-certificate-errors-spki-list="$(cat /run/broker-ca/spki)"
+            - exec /usr/local/bin/chromium-run --proxy-server=127.0.0.1:{{ .Values.broker.browserPort }} --ignore-certificate-errors-spki-list="$(cat /run/broker-ca/spki)"
           volumeMounts:
             - name: broker-ca
               mountPath: /run/broker-ca
