@@ -22,6 +22,7 @@ Minimal Claude Code agent with Discord bot interface
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| broker.browserPort | int | `3129` | Port for the browser sidecar's traffic (127.0.0.1 only). It only fills website login placeholders from the `logins` vault and never adds API credentials. |
 | broker.enabled | bool | `false` | Run the credential broker sidecar (mitmproxy). Service credentials are mounted only into it; the agent container sends its traffic through it via HTTP(S)_PROXY, trusts its CA, and uses placeholder credentials that the broker replaces for listed hosts. |
 | broker.hosts | list | `[]` | Hosts the broker intercepts and how it authenticates to them, rendered to /etc/broker/config.json (see the wicek README for the format) |
 | broker.image.repository | string | `"ghcr.io/xxczaki/wicek-broker"` | Broker image repository |
