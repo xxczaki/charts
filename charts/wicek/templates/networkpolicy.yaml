@@ -60,6 +60,16 @@ spec:
         - port: 8080
           protocol: TCP
     {{- end }}
+    {{- if .Values.telemetry.enabled }}
+    # OTLP telemetry receiver
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.telemetry.namespace }}
+      ports:
+        - port: {{ include "wicek.telemetryPort" . }}
+          protocol: TCP
+    {{- end }}
     {{- if .Values.networkPolicy.tailscale.enabled }}
     # SSH + sidecar service ports to Tailscale devices
     - to:

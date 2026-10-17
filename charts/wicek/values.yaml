@@ -96,6 +96,28 @@ broker:
     limits:
       memory: "256Mi"
       cpu: "300m"
+telemetry:
+  # -- Export Claude Code OpenTelemetry metrics and events (token usage, cost, tool calls)
+  # @section -- Telemetry
+  enabled: false
+  # -- OTLP HTTP endpoint, e.g. an in-cluster Alloy receiver. It bypasses the broker (NO_PROXY).
+  # @section -- Telemetry
+  endpoint: ""
+  # -- Namespace of the OTLP receiver, allowed as an egress destination on the endpoint's port
+  # @section -- Telemetry
+  namespace: monitoring
+  # -- Also export traces (Claude Code beta)
+  # @section -- Telemetry
+  traces: true
+  # -- Include prompt and response text in events and spans
+  # @section -- Telemetry
+  logUserPrompts: false
+  # -- Include tool parameters, Bash commands, file paths, and MCP tool names
+  # @section -- Telemetry
+  logToolDetails: false
+  # -- Extra OTEL_RESOURCE_ATTRIBUTES (comma-separated key=value pairs, no spaces)
+  # @section -- Telemetry
+  resourceAttributes: ""
 image:
   repository: ghcr.io/xxczaki/wicek
   pullPolicy: Always
