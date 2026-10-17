@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.349](https://img.shields.io/badge/Version-0.1.349-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 369a2ef0e4513bb329ae546227e1ce95d52b8d24](https://img.shields.io/badge/AppVersion-369a2ef0e4513bb329ae546227e1ce95d52b8d24-informational?style=flat-square)
+![Version: 0.1.350](https://img.shields.io/badge/Version-0.1.350-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 369a2ef0e4513bb329ae546227e1ce95d52b8d24](https://img.shields.io/badge/AppVersion-369a2ef0e4513bb329ae546227e1ce95d52b8d24-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
