@@ -11,10 +11,10 @@ maintainers:
   - name: Antoni Kępiński
     url: https://github.com/xxczaki
 sources:
-  - https://github.com/xxczaki/charts/tree/main/charts/discord-bot
+  - https://github.com/xxczaki/discord-bot/tree/main/deploy/chart
 type: application
-version: 0.34.37
-appVersion: 49766752710e0176afed0bd285514c62f73b5c91
+version: 0.34.38
+appVersion: "967c84abcf3ce243250c21e61e4cf325ea4bb5a9"
 dependencies:
   - name: redis
     version: ~28.3.1
