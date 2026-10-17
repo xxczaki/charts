@@ -1,6 +1,6 @@
 # wicek
 
-![Version: 0.1.350](https://img.shields.io/badge/Version-0.1.350-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 369a2ef0e4513bb329ae546227e1ce95d52b8d24](https://img.shields.io/badge/AppVersion-369a2ef0e4513bb329ae546227e1ce95d52b8d24-informational?style=flat-square)
+![Version: 0.1.351](https://img.shields.io/badge/Version-0.1.351-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 369a2ef0e4513bb329ae546227e1ce95d52b8d24](https://img.shields.io/badge/AppVersion-369a2ef0e4513bb329ae546227e1ce95d52b8d24-informational?style=flat-square)
 
 Minimal Claude Code agent with Discord bot interface
 
@@ -117,6 +117,7 @@ Minimal Claude Code agent with Discord bot interface
 | telemetry.endpoint | string | `""` | OTLP HTTP endpoint, e.g. an in-cluster Alloy receiver. It bypasses the broker (NO_PROXY). |
 | telemetry.logToolDetails | bool | `false` | Include tool parameters, Bash commands, file paths, and MCP tool names |
 | telemetry.logUserPrompts | bool | `false` | Include prompt and response text in events and spans |
+| telemetry.metricsTemporality | string | `"cumulative"` | Metrics temporality. Prometheus-compatible backends (Mimir via Alloy) drop delta counters, so keep cumulative. |
 | telemetry.namespace | string | `"monitoring"` | Namespace of the OTLP receiver, allowed as an egress destination on the endpoint's port |
 | telemetry.resourceAttributes | string | `""` | Extra OTEL_RESOURCE_ATTRIBUTES (comma-separated key=value pairs, no spaces) |
 | telemetry.traces | bool | `true` | Also export traces (Claude Code beta) |

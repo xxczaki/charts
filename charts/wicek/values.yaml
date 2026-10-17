@@ -106,6 +106,9 @@ telemetry:
   # -- Namespace of the OTLP receiver, allowed as an egress destination on the endpoint's port
   # @section -- Telemetry
   namespace: monitoring
+  # -- Metrics temporality. Prometheus-compatible backends (Mimir via Alloy) drop delta counters, so keep cumulative.
+  # @section -- Telemetry
+  metricsTemporality: cumulative
   # -- Also export traces (Claude Code beta)
   # @section -- Telemetry
   traces: true

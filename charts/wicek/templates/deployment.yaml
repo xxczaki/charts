@@ -201,6 +201,8 @@ spec:
               value: http/protobuf
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: {{ required "telemetry.endpoint is required when telemetry is enabled" .Values.telemetry.endpoint | quote }}
+            - name: OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
+              value: {{ .Values.telemetry.metricsTemporality | quote }}
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: {{ join "," (compact (list (printf "wicek.version=%s" .Chart.Version) .Values.telemetry.resourceAttributes)) | quote }}
             {{- if .Values.telemetry.traces }}
