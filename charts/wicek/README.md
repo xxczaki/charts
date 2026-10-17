@@ -109,6 +109,18 @@ Minimal Claude Code agent with Discord bot interface
 |-----|------|---------|-------------|
 | ssh.knownHosts | string | `""` | SSH known_hosts entries (`host keytype key`, one per line), mounted at /etc/ssh/ssh_known_hosts so host keys are trusted across redeploys. Get them with `ssh-keyscan <host>`. When empty, no file is mounted. |
 
+### Telemetry
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| telemetry.enabled | bool | `false` | Export Claude Code OpenTelemetry metrics and events (token usage, cost, tool calls) |
+| telemetry.endpoint | string | `""` | OTLP HTTP endpoint, e.g. an in-cluster Alloy receiver. It bypasses the broker (NO_PROXY). |
+| telemetry.logToolDetails | bool | `false` | Include tool parameters, Bash commands, file paths, and MCP tool names |
+| telemetry.logUserPrompts | bool | `false` | Include prompt and response text in events and spans |
+| telemetry.namespace | string | `"monitoring"` | Namespace of the OTLP receiver, allowed as an egress destination on the endpoint's port |
+| telemetry.resourceAttributes | string | `""` | Extra OTEL_RESOURCE_ATTRIBUTES (comma-separated key=value pairs, no spaces) |
+| telemetry.traces | bool | `true` | Also export traces (Claude Code beta) |
+
 ### Other Values
 
 | Key | Type | Default | Description |

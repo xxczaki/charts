@@ -164,7 +164,11 @@ spec:
             {{- range (include "wicek.readers" . | fromJsonArray) }}
             {{- $readerHosts = append $readerHosts .host }}
             {{- end }}
-            {{- $noProxy := join "," (concat (list "localhost" "127.0.0.1") .Values.broker.noProxy $readerHosts) }}
+            {{- $telemetryHosts := list }}
+            {{- if .Values.telemetry.enabled }}
+            {{- $telemetryHosts = append $telemetryHosts (splitList ":" (urlParse .Values.telemetry.endpoint).host | first) }}
+            {{- end }}
+            {{- $noProxy := join "," (concat (list "localhost" "127.0.0.1") .Values.broker.noProxy $readerHosts $telemetryHosts) }}
             {{- range $name := list "HTTP_PROXY" "http_proxy" "HTTPS_PROXY" "https_proxy" }}
             - name: {{ $name }}
               value: {{ $proxy | quote }}
@@ -184,6 +188,34 @@ spec:
             {{- if .Values.broker.sshKeys }}
             - name: SSH_AUTH_SOCK
               value: /run/ssh-agent/agent.sock
+            {{- end }}
+            {{- end }}
+            {{- if .Values.telemetry.enabled }}
+            - name: CLAUDE_CODE_ENABLE_TELEMETRY
+              value: "1"
+            - name: OTEL_METRICS_EXPORTER
+              value: otlp
+            - name: OTEL_LOGS_EXPORTER
+              value: otlp
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: http/protobuf
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: {{ required "telemetry.endpoint is required when telemetry is enabled" .Values.telemetry.endpoint | quote }}
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: {{ join "," (compact (list (printf "wicek.version=%s" .Chart.Version) .Values.telemetry.resourceAttributes)) | quote }}
+            {{- if .Values.telemetry.traces }}
+            - name: CLAUDE_CODE_ENHANCED_TELEMETRY_BETA
+              value: "1"
+            - name: OTEL_TRACES_EXPORTER
+              value: otlp
+            {{- end }}
+            {{- if .Values.telemetry.logUserPrompts }}
+            - name: OTEL_LOG_USER_PROMPTS
+              value: "1"
+            {{- end }}
+            {{- if .Values.telemetry.logToolDetails }}
+            - name: OTEL_LOG_TOOL_DETAILS
+              value: "1"
             {{- end }}
             {{- end }}
             {{- if and .Values.secrets.githubWebhookSecret.name .Values.secrets.githubWebhookSecret.key }}

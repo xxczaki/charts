@@ -70,3 +70,12 @@ Readers as the agent sees them: name, description, and in-cluster URL
 {{- end }}
 {{- toJson $readers }}
 {{- end }}
+
+{{/*
+Port of the OTLP telemetry endpoint
+*/}}
+{{- define "wicek.telemetryPort" -}}
+{{- $url := urlParse .Values.telemetry.endpoint }}
+{{- $parts := splitList ":" $url.host }}
+{{- if gt (len $parts) 1 }}{{ last $parts }}{{ else if eq $url.scheme "https" }}443{{ else }}80{{ end }}
+{{- end }}

@@ -79,6 +79,16 @@ spec:
             - port: "8080"
               protocol: TCP
     {{- end }}
+    {{- if .Values.telemetry.enabled }}
+    # OTLP telemetry receiver
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: {{ .Values.telemetry.namespace }}
+      toPorts:
+        - ports:
+            - port: {{ include "wicek.telemetryPort" . | quote }}
+              protocol: TCP
+    {{- end }}
     {{- if .Values.networkPolicy.tailscale.enabled }}
     # SSH + sidecar service ports to the Tailscale namespace.
     - toEndpoints:
