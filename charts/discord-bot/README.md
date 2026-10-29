@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.34.67](https://img.shields.io/badge/Version-0.34.67-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: f023fbd64b3c4d2c81263baf381334f0e2ced51d](https://img.shields.io/badge/AppVersion-f023fbd64b3c4d2c81263baf381334f0e2ced51d-informational?style=flat-square)
+![Version: 0.35.0](https://img.shields.io/badge/Version-0.35.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 6d986575d2ff15b8e16b6d823fa1e08e569bde59](https://img.shields.io/badge/AppVersion-6d986575d2ff15b8e16b6d823fa1e08e569bde59-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -28,12 +28,11 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| env.botDebugChannelId | string | `""` | ID of the channel used for sending debug messages |
+| env.botDebugChannelId | string | `""` | ID of the channel used for sending debug messages The server containing this channel is treated as the home server, whose owners can manage shared caches |
 | env.clientId | string | `""` | Client ID used for Discord API authorization |
-| env.disabledCommands | string | `""` | Comma-separated list of commands to disable (e.g. "maintenance,lockdown") Disabled commands are not registered with Discord |
+| env.disabledCommands | string | `""` | Comma-separated list of commands to disable (e.g. "lockdown,prompt") Disabled commands are not registered with Discord |
 | env.enableYoutube | string | `""` | Enable YouTube for search and playback Set to "true" to enable YouTube extractor, leave empty for SoundCloud-only |
-| env.ownerRoleId | string | `""` | ID of the role that should be allowed to perform sensitive actions, like clearing the query cache |
-| env.playlistsChannelId | string | `""` | ID of the channel used for storing the user playlists |
+| env.guilds | object | `{}` | Servers allowed to use the bot, keyed by guild ID Each entry needs `playlistsChannelId` (channel storing the server's playlists) and can set `ownerRoleId` (role allowed to use owner-only commands like `/lockdown`, which are unavailable without it) |
 | env.spotifyClientId | string | `""` | Optional client ID for the Spotify API Used by https://github.com/iTsMaaT/discord-player-spotify |
 | env.spotifyMarket | string | `"DE"` | Spotify market code (ISO 3166-1 alpha-2) for search results |
 | persistentVolumeClaim | object | `{"accessModes":["ReadWriteOnce"],"size":"5Gi","storageClass":""}` | Configuration of the PVC used for storing the cached songs |
@@ -43,30 +42,27 @@
 | secrets.spotifyClientSecret | object | `{"key":"","name":""}` | Points to a Secret containing the Spotify API client secret Used by https://github.com/iTsMaaT/discord-player-spotify |
 | secrets.token | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
 
-### RBAC
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| rbac | object | `{"create":true}` | RBAC configuration to access the Kubernetes API |
-
 ### Redis
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | redis | object | `{"architecture":"standalone","auth":{"enabled":false},"commonConfiguration":"# Enable AOF https://redis.io/topics/persistence#append-only-file\nappendonly yes\n# Disable RDB persistence, AOF persistence already enabled.\nsave \"\"","image":{"digest":"sha256:d75bda00b778ad5e03a639ec36e00f6665a5d7e0f35a6250be5b103fb2117275"}}` | General configuration of the Redis instance used for query caching and storing usage statistics |
 
+### Service Account
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| serviceAccount | object | `{"annotations":{},"create":true,"name":""}` | Service account used by the bot Pod |
+
 ### Other Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"f023fbd64b3c4d2c81263baf381334f0e2ced51d"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
+| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"6d986575d2ff15b8e16b6d823fa1e08e569bde59"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
 | livenessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Liveness probe used for the bot Pod |
 | readinessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Readiness probe used for the bot Pod |
 | resources | object | `{"limits":{"cpu":"400m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Resource limits used for the bot Pod |
 | securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}` | Security context used for the bot Pod |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.name | string | `""` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
