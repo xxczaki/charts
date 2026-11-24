@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.35.63](https://img.shields.io/badge/Version-0.35.63-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0bfa20024c9b259394c6c64cf8b4a42aa13a228a](https://img.shields.io/badge/AppVersion-0bfa20024c9b259394c6c64cf8b4a42aa13a228a-informational?style=flat-square)
+![Version: 0.35.64](https://img.shields.io/badge/Version-0.35.64-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 88fab149cddc72a4588d044f0de77e5e66fc4631](https://img.shields.io/badge/AppVersion-88fab149cddc72a4588d044f0de77e5e66fc4631-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -37,7 +37,6 @@
 | env.spotifyMarket | string | `"DE"` | Spotify market code (ISO 3166-1 alpha-2) for search results |
 | persistentVolumeClaim | object | `{"accessModes":["ReadWriteOnce"],"size":"5Gi","storageClass":""}` | Configuration of the PVC used for storing the cached songs |
 | secrets.mistralApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the Mistral API key Used for the `/prompt` command |
-| secrets.openAiApiKey | object | `{"key":"","name":""}` | Points to a Secret containing the OpenAI API key Used for the `/prompt` command |
 | secrets.sentryDsn | object | `{"key":"","name":""}` | Points to a Secret containing the Sentry DSN Learn more: https://docs.sentry.io/concepts/key-terms/dsn-explainer/ |
 | secrets.spotifyClientSecret | object | `{"key":"","name":""}` | Points to a Secret containing the Spotify API client secret Used by https://github.com/iTsMaaT/discord-player-spotify |
 | secrets.token | object | `{"key":"","name":""}` | Points to a Secret containing the Discord bot token |
@@ -58,7 +57,7 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"0bfa20024c9b259394c6c64cf8b4a42aa13a228a"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
+| image | object | `{"pullPolicy":"Always","repository":"ghcr.io/xxczaki/discord-bot","tag":"88fab149cddc72a4588d044f0de77e5e66fc4631"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
 | livenessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Liveness probe used for the bot Pod |
 | readinessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Readiness probe used for the bot Pod |
 | resources | object | `{"limits":{"cpu":"400m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Resource limits used for the bot Pod |
