@@ -1,6 +1,6 @@
 # discord-bot
 
-![Version: 0.35.58](https://img.shields.io/badge/Version-0.35.58-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 657fb6794061b4ec025be84607bb3aad5ed421ce](https://img.shields.io/badge/AppVersion-657fb6794061b4ec025be84607bb3aad5ed421ce-informational?style=flat-square)
+![Version: 0.35.59](https://img.shields.io/badge/Version-0.35.59-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3750edc4dce5dc0cb6039ae795f61d8215d505b3](https://img.shields.io/badge/AppVersion-3750edc4dce5dc0cb6039ae795f61d8215d505b3-informational?style=flat-square)
 
 🎵 Music bot for my private Discord server, powered by discord-player
 
@@ -20,7 +20,7 @@
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | redis | ~28.3.15 |
+| https://charts.bitnami.com/bitnami | redis | ~28.3.16 |
 
 ## Values
 
@@ -58,7 +58,7 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"657fb6794061b4ec025be84607bb3aad5ed421ce"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
+| image | object | `{"pullPolicy":"Always","repository":"xxczaki/discord-bot","tag":"3750edc4dce5dc0cb6039ae795f61d8215d505b3"}` | General configuration of the Redis instance used for query caching and storing usage statistics |
 | livenessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Liveness probe used for the bot Pod |
 | readinessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"tcpSocket":{"port":8000}}` | Readiness probe used for the bot Pod |
 | resources | object | `{"limits":{"cpu":"400m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}` | Resource limits used for the bot Pod |
