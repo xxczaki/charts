@@ -27,18 +27,15 @@ jobs:
       - name: Run helm-docs
         uses: losisin/helm-docs-github-action@v2
 
+      - name: Stage helm-docs changes
+        run: git add --all charts
+
       - name: Commit helm-docs changes
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          git add --all charts
-          if git diff --cached --quiet; then
-            echo "Helm documentation already up to date"
-            exit 0
-          fi
-          .github/scripts/commit-via-api.sh "$GITHUB_REPOSITORY" "$GITHUB_REF_NAME" "update Helm documentation"
-          git fetch --quiet origin "$GITHUB_REF_NAME"
-          git reset --quiet --hard "origin/$GITHUB_REF_NAME"
+        uses: xxczaki/actions/commit-via-api@2055f70b487aac8d86315ce4eb26028931f60cd6 # v1.0.0
+        with:
+          token: ${{ github.token }}
+          message: update Helm documentation
+          sync-checkout: true
 
       - name: Configure Git
         run: |
