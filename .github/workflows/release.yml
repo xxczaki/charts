@@ -7,11 +7,17 @@ on:
     paths-ignore:
       - '**/README.md'
 
+permissions: {}
+
 jobs:
   release:
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     runs-on: ubuntu-latest
+    outputs:
+      charts: ${{ steps.charts.outputs.charts }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -34,17 +40,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v7
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-
-      - name: Export GPG key to legacy format
-        run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --dearmor --output keyring.gpg
-          echo "${{ secrets.PASSPHRASE }}" > passphrase-file.txt
-
       - name: Install Helm
         uses: azure/setup-helm@v5
         env:
@@ -55,12 +50,78 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Run chart-releaser
+        id: cr
         uses: helm/chart-releaser-action@v1.9.0
         with:
           skip_existing: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_KEY: Antoni Kępiński <22645979+xxczaki@users.noreply.github.com>
-          CR_KEYRING: keyring.gpg
-          CR_PASSPHRASE_FILE: passphrase-file.txt
-          CR_SIGN: true
+
+      - name: Collect released charts
+        id: charts
+        env:
+          CHANGED_CHARTS: ${{ steps.cr.outputs.changed_charts }}
+        run: |
+          echo "charts=$(jq --compact-output --null-input --arg charts "$CHANGED_CHARTS" '$charts | split(",") | map(select(length > 0))')" >> "$GITHUB_OUTPUT"
+          if compgen -G ".cr-release-packages/*.tgz" > /dev/null; then
+            echo "packaged=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Attest release packages
+        if: steps.charts.outputs.packaged == 'true'
+        uses: actions/attest@v4
+        with:
+          subject-path: .cr-release-packages/*.tgz
+          create-storage-record: false
+
+  oci:
+    needs: [release]
+    if: needs.release.outputs.charts != '[]'
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        chart: ${{ fromJSON(needs.release.outputs.charts) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install Helm
+        uses: azure/setup-helm@v5
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Package chart
+        id: package
+        env:
+          CHART: ${{ matrix.chart }}
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm dependency build "$CHART"
+          helm package "$CHART" --destination dist
+          echo "name=$(yq '.name' "$CHART/Chart.yaml")" >> "$GITHUB_OUTPUT"
+
+      - name: Push to GHCR
+        id: push
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "$GH_TOKEN" | helm registry login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          output=$(helm push dist/*.tgz oci://ghcr.io/xxczaki/charts 2>&1)
+          echo "$output"
+          echo "digest=$(awk '/^Digest:/ {print $2}' <<< "$output")" >> "$GITHUB_OUTPUT"
+
+      - name: Attest OCI chart
+        uses: actions/attest@v4
+        with:
+          subject-name: ghcr.io/xxczaki/charts/${{ steps.package.outputs.name }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+          create-storage-record: false
