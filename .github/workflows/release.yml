@@ -6,6 +6,7 @@ on:
       - main
     paths-ignore:
       - '**/README.md'
+  workflow_dispatch:
 
 permissions: {}
 
@@ -64,6 +65,9 @@ jobs:
         env:
           CHANGED_CHARTS: ${{ steps.cr.outputs.changed_charts }}
         run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            CHANGED_CHARTS=$(find charts -mindepth 1 -maxdepth 1 -type d | sort | paste -sd, -)
+          fi
           echo "charts=$(jq --compact-output --null-input --arg charts "$CHANGED_CHARTS" '$charts | split(",") | map(select(length > 0))')" >> "$GITHUB_OUTPUT"
           if compgen -G ".cr-release-packages/*.tgz" > /dev/null; then
             echo "packaged=true" >> "$GITHUB_OUTPUT"
@@ -116,7 +120,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "$GH_TOKEN" | helm registry login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
-          output=$(helm push dist/*.tgz oci://ghcr.io/xxczaki/charts 2>&1)
+          if ! output=$(helm push dist/*.tgz oci://ghcr.io/xxczaki/charts 2>&1); then
+            echo "$output"
+            exit 1
+          fi
           echo "$output"
           echo "digest=$(awk '/^Digest:/ {print $2}' <<< "$output")" >> "$GITHUB_OUTPUT"
 
