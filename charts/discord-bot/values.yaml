@@ -16,12 +16,6 @@ secrets:
   spotifyClientSecret:
     name: ""
     key: ""
-  # -- Points to a Secret containing the OpenAI API key
-  # Used for the `/prompt` command
-  # @section -- Bot
-  openAiApiKey:
-    name: ""
-    key: ""
   # -- Points to a Secret containing the Mistral API key
   # Used for the `/prompt` command
   # @section -- Bot
@@ -85,9 +79,9 @@ redis:
     save ""
 # -- General configuration of the Redis instance used for query caching and storing usage statistics
 image:
-  repository: xxczaki/discord-bot
+  repository: ghcr.io/xxczaki/discord-bot
   pullPolicy: Always
-  tag: "0bfa20024c9b259394c6c64cf8b4a42aa13a228a"
+  tag: "88fab149cddc72a4588d044f0de77e5e66fc4631"
 # -- Security context used for the bot Pod
 securityContext:
   allowPrivilegeEscalation: false

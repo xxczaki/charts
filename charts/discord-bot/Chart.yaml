@@ -13,14 +13,11 @@ maintainers:
 sources:
   - https://github.com/xxczaki/discord-bot/tree/main/deploy/chart
 type: application
-version: 0.35.63
-appVersion: "0bfa20024c9b259394c6c64cf8b4a42aa13a228a"
+version: 0.35.64
+appVersion: "88fab149cddc72a4588d044f0de77e5e66fc4631"
 dependencies:
   - name: redis
     version: ~28.3.16
     repository: https://charts.bitnami.com/bitnami
 annotations:
   artifacthub.io/category: streaming-messaging
-  artifacthub.io/signKey: |-
-    fingerprint: 81B1B9DB4D0DA137884ABA3236CBA5624952BE06
-    url: https://xxczaki.github.io/charts/key.asc
