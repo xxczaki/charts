@@ -4,6 +4,33 @@ entries:
   - annotations:
       artifacthub.io/category: streaming-messaging
     apiVersion: v2
+    appVersion: 9d8e3d4f966028f87aa2203a8b58a434d369046b
+    created: "2026-11-26T00:40:42.971799087Z"
+    dependencies:
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: ~28.3.16
+    description: "\U0001F3B5 Music bot for my private Discord server, powered by discord-player"
+    digest: 2c9afae0c3d6fe7d0530c8932a8f2097c2a5d6a0a1635b2d303f9b95bbadc9c8
+    home: https://github.com/xxczaki/discord-bot
+    icon: data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%2270%2080%20885%201040%22%3E%3Cpath%20d%3D%22M180.5%201120q-48%200-79.5-30c-21-20-31.5-46.83-31.5-80.5q0-44.5%2024.5-81.75t68.5-60%20102-23.75V174.5l690-94.5v766q0%2088-45%20140.75c-30%2035.17-69.667%2052.75-119%2052.75q-48%200-79.5-30T679.5%20929q0-44.5%2024.5-81.75t68.5-60%20102-23.75V303l-530%2072.5v551c0%2058.667-15%20105.58-45%20140.75s-69.667%2052.75-119%2052.75%22%2F%3E%3C%2Fsvg%3E
+    keywords:
+    - discord-bot
+    - discord-music-bot
+    - discord
+    maintainers:
+    - name: Antoni Kępiński
+      url: https://github.com/xxczaki
+    name: discord-bot
+    sources:
+    - https://github.com/xxczaki/discord-bot/tree/main/deploy/chart
+    type: application
+    urls:
+    - https://github.com/xxczaki/charts/releases/download/discord-bot-0.35.69/discord-bot-0.35.69.tgz
+    version: 0.35.69
+  - annotations:
+      artifacthub.io/category: streaming-messaging
+    apiVersion: v2
     appVersion: 0eab0ea155c8ed208cab9691750b447320a409f1
     created: "2026-11-25T04:49:09.827068873Z"
     dependencies:
@@ -38836,4 +38863,4 @@ entries:
     urls:
     - https://github.com/xxczaki/charts/releases/download/discord-bot-0.0.1/discord-bot-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-25T04:49:09.82901239Z"
+generated: "2026-11-26T00:40:42.975379867Z"
