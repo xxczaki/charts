@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run helm-docs
-        uses: losisin/helm-docs-github-action@v2
+        uses: losisin/helm-docs-github-action@9e0787c426fdec38be6288bb5c0559dcb388412c # v2.0.1
 
       - name: Stage helm-docs changes
         run: git add --all charts
